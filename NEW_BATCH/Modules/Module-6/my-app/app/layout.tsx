@@ -1,5 +1,8 @@
 // app/layout.tsx
+import { NavigationMenu } from "@/components/ui/navigation-menu"
+import React from "react"
 // import "./globals.css"
+// import Nav from "@/components/ui/navigation-menu"
 
 export const metadata = {
   title: "My App",
@@ -13,8 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <h1>This is Root Layou</h1>
-      <body>{children}</body>
+      <body>
+        <h1>This is Root Layout</h1>
+        {/* <Nav /> */}
+{/* <NavigationMenu></NavigationMenu> */}
+        {children}
+      </body>
     </html>
   )
 }

@@ -1,11 +1,8 @@
+import React from 'react';
 
-
-// import { Calendar } from "@/components/ui/calendar"
-
-export default function Home() {
-  return (
-
- <div>
+const Navigation = () => {
+    return (
+        <div>
             <h1>Thappa Header</h1>
 
             <ul>
@@ -14,7 +11,7 @@ export default function Home() {
                 <li></li>
             </ul>
         </div>
+    );
+};
 
-
-  )
-}
+export default Navigation;
