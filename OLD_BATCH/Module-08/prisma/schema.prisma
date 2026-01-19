@@ -13,24 +13,60 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
-
 model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id           Int            @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean        @default(false)
+  authorId     Int
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  postCategory PostCategory[]
+  author       User           @relation(fields: [authorId], references: [id])
+
+  @@map("posts")
 }
 
-model Post1 {
-  id       Int    @id @default(autoincrement())
-  title1   String
-  content1 String
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String
+  role     UserRole @default(user)
+  age      Int      @default(0)
+  post     Post[]
+  profile  Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  userId Int     @unique
+  user   User    @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
+}
+
+model Category {
+  id           Int            @id @default(autoincrement())
+  name         String
+  postCategory PostCategory[]
+
+  @@map("categories")
+}
+
+model PostCategory {
+  postId     Int
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id])
+
+  @@id([postId, categoryId])
+  @@map("post_category")
+}
+
+enum UserRole {
+  user
+  admin
 }

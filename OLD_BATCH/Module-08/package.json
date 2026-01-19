@@ -6,6 +6,9 @@
   "scripts": {
     "type": "module",
     "dev": "npx tsx watch  script.ts",
+    "dev1": "npx tsx watch  create.ts",
+    "dev2": "npx tsx watch  createBio.ts",
+    "dev3": "npx tsx watch  createPost.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
