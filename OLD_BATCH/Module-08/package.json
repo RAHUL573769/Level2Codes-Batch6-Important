@@ -9,6 +9,7 @@
     "dev1": "npx tsx watch  create.ts",
     "dev2": "npx tsx watch  createBio.ts",
     "dev3": "npx tsx watch  createPost.ts",
+    "dev4": "npx tsx watch  relationfilters.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
