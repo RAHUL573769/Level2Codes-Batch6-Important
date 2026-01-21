@@ -12,3 +12,63 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  DOCTOR
+  PATIENT
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
+model User {
+  user_id            Int        @id @default(autoincrement())
+  email              String     @unique
+  password           String
+  role               UserRole
+  needPasswordChange Boolean    @default(true)
+  status             UserStatus @default(ACTIVE)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  adminLink UserAdminOneToOneRelation?
+
+  @@map("users")
+}
+
+model Admin {
+  admin_id      Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  profilePhoto  String?
+  contactNumber String
+  isDeleted     Boolean
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  userLink UserAdminOneToOneRelation?
+}
+
+model UserAdminOneToOneRelation {
+  id Int @id @default(autoincrement())
+
+  userId  Int @unique
+  adminId Int @unique
+
+  user  User  @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  admin Admin @relation(fields: [adminId], references: [admin_id], onDelete: Cascade)
+
+  @@map("user_admins")
+}
+
+// model UserAdmin{
+//     id Int @id @default(autoincrement())
+//     userId Int @unique
+//     adminId Int @unique
+//     user User
+
+// }
