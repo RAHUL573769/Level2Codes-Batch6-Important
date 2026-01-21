@@ -5,17 +5,40 @@ const main = async () => {
     try {
         const createUser = await prisma.user.create({
             data: {
-                username: "udydsd6esssser2dsf1d601",
-                email: "userdyd26de1sssfdds016@ph6.com",
+                username: "uedsxsydrdswsd6edsssser2dsf1d601",
+                email: "userdyxesdrsdsw26ded1sssfdds016@ph6.com",
                 role: UserRole.user
             }
         });
+        const updateUser = await prisma.user.update({
+            where: { id: 109 },
+            data: { age: 30 }
+        })
+        console.log("UpdateUser", updateUser)
 
+        const averageAggregate = await prisma.user.aggregate({
+            _avg: {
+                age: true
+            }
+        })
+        console.log("Average", averageAggregate)
+        const sumAge = await prisma.user.aggregate({
+            _sum: { age: true }
+        })
+        console.log("SumAge", sumAge)
         // const user = await prisma.user.create({
         //     data: {
         //         username: "John Doe",
         //     },
         // })
+
+        const countAge = await prisma.user.aggregate({
+            _count: {
+                age: true
+            }
+        })
+        console.log("CountAge", countAge)
+
 
         const post = await prisma.post.create({
             data: {
@@ -25,6 +48,21 @@ const main = async () => {
             },
         })
 
+        const groupPost = await prisma.post.groupBy({
+            by: ['published'],
+            where: {
+                published: true,
+            },
+            _count: {
+                title: true,
+            },
+        });
+
+
+
+
+
+        console.log("GroupPost", groupPost)
         // console.log(createUser)
 
         const createProfile = await prisma.profile.create({
@@ -86,4 +124,33 @@ const main = async () => {
     }
 };
 
-main();
+
+const batchTransaction = async () => {
+    const [userData, updateData] = await prisma.$transaction([
+        prisma.user.create({
+            data: {
+                username: "uedsxsyddswswd6edsssser2dsf1d601",
+                email: "userdyxesdsdsw2w6ded1sssfdds016@ph6.com",
+                role: UserRole.user,
+            },
+        }),
+        prisma.user.update({
+            where: { id: 1 },
+            data: { age: 305 },
+        }),
+    ]);
+    console.log(updateData)
+    return { userData, updateData };
+};
+
+const interctiveTransaction = async () => { 
+
+    
+}
+
+
+
+
+batchTransaction()
+
+// main();

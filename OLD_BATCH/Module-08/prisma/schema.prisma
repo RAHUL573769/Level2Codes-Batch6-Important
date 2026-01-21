@@ -28,13 +28,14 @@ model Post {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String   @unique
+  id       Int    @id @default(autoincrement())
+  username String @unique
   email    String
-  role     UserRole @default(user)
-  age      Int      @default(0)
-  post     Post[]
-  profile  Profile?
+
+  role    UserRole @default(user)
+  age     Int      @default(0)
+  post    Post[]
+  profile Profile?
 
   @@map("users")
 }
