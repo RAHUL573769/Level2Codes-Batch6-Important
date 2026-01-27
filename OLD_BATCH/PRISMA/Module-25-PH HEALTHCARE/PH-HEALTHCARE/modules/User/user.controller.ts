@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { UserService } from "./user.service";
 
 
@@ -19,12 +19,50 @@ const pickFunction = <T, K extends keyof T>(obj: T, keys: K[]) => {
 };
 
 
-const createAdminController = async (req: Request, res: Response) => {
+const validateRequest = (req: Request, res: Response, next: NextFunction) => {
+
+
+
+}
+
+export const catchAsync = (fn: RequestHandler) => {
+
+    return async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            await fn(req, res, next)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+}
+
+export const sendResponse = <T>(res: Response, req: Request, jsonData: {
+    statusCode: number,
+    success: boolean,
+    message: string,
+    data: T | null | undefined
+}) => {
+    res.status(jsonData.statusCode).json({
+        success: jsonData.success,
+        message: jsonData.message,
+        data: jsonData.data
+    })
+
+}
+
+const createAdminController = catchAsync(async (req: Request, res: Response) => {
     try {
 
         const data = req.body
         const result = await UserService.createAdmin(data)
-        res.status(200).json({
+        // res.status(200).json({
+        //     success: true,
+        //     message: "Admin Created Successfully",
+        //     data: result
+        // })
+        sendResponse(res, req, {
+            statusCode: 200,
             success: true,
             message: "Admin Created Successfully",
             data: result
@@ -38,7 +76,7 @@ const createAdminController = async (req: Request, res: Response) => {
             error: error?.message
         })
     }
-}
+})
 const getAdminController = async (req: Request, res: Response) => {
 
     pickFunction(req.query, ["name", "email", "searchTerm"])

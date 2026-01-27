@@ -3,21 +3,22 @@ import { UserRole } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 // import { UserWhereInput } from '../../generated/prisma/models/User';
 import { Admin, Prisma } from "../../generated/prisma/client";
+import { paginationFunction } from "../../helpers/pagination.helpers";
 // import { SortOrder } from '../../generated/prisma/internal/prismaNamespace';
 
 
 
-const paginationFunction = (options: { page?: number, limit?: number, sortBy?: string, sortOrder?: string }) => {
+// const paginationFunction = (options: { page?: number, limit?: number, sortBy?: string, sortOrder?: string }) => {
 
-    const page: number = Number(options.page) || 1
-    const limit: number = Number(options.limit) || 10
-    const skip: number = (Number(page)) * limit
-    const sortBy: string = options.sortBy || "createdAt"
-    const sortOrder: string = options.sortOrder || "desc"
-    return {
-        page, limit, skip, sortBy, sortOrder
-    }
-}
+//     const page: number = Number(options.page) || 1
+//     const limit: number = Number(options.limit) || 10
+//     const skip: number = (Number(page)) * limit
+//     const sortBy: string = options.sortBy || "createdAt"
+//     const sortOrder: string = options.sortOrder || "desc"
+//     return {
+//         page, limit, skip, sortBy, sortOrder
+//     }
+// }
 
 const createAdmin = async (data: any) => {
     const userData = {
@@ -28,6 +29,7 @@ const createAdmin = async (data: any) => {
 
     const result = await prisma.$transaction(async (tx) => {
         const createdUser = await tx.user.create({ data: userData });
+        return createdUser
 
     });
 
