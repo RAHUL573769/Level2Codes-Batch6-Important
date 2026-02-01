@@ -1,33 +1,30 @@
+import { Blog } from "@/types/idex";
 import Image from "next/image";
 import Link from "next/link";
 import { AiFillLike } from "react-icons/ai";
 import { FaCalendar } from "react-icons/fa";
 
-const BlogCard = ({ blog }) => {
+const LatestBlogCard = ({ blog }:{blog:Blog}) => {
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div key={blog.id} className="card w-full bg-base-100 shadow-xl">
       <figure>
         <Image
           src={blog.blog_image}
           width={600}
           height={100}
           alt="blog image"
-          className="rounded-xl h-64"
+          className="rounded-xl h-96"
         />
       </figure>
       <div className="card-body">
-        <p className="flex items-center justify-center text-accent bg-cyan-100 w-44 rounded-full py-1">
+        <p className="flex items-center justify-center text-accent bg-cyan-100 w-44 px-2 py-1 rounded-full">
           <FaCalendar className="mr-2" />
           {blog.publish_date}
         </p>
-        <h2 className="card-title">
-          {blog.title.length > 30
-            ? blog.title.slice(0, 30) + "..."
-            : blog.title}
-        </h2>
+        <h2 className="card-title">{blog.title}</h2>
         <p className="text-gray-500">
           {blog.description.length > 100
-            ? blog.description.slice(0, 60) + "..."
+            ? blog.description.slice(0, 180) + "..."
             : blog.description}
           <Link href={`/blogs/${blog.id}`} className="text-accent">
             Read More
@@ -56,4 +53,4 @@ const BlogCard = ({ blog }) => {
   );
 };
 
-export default BlogCard;
+export default LatestBlogCard;

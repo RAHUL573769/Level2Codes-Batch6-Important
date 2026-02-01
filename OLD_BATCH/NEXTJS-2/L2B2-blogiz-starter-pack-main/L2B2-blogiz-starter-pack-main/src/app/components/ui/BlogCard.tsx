@@ -3,27 +3,45 @@ import Link from "next/link";
 import { AiFillLike } from "react-icons/ai";
 import { FaCalendar } from "react-icons/fa";
 
-const LatestBlogCard = ({ blog }) => {
+interface Blog {
+  blog_image: string;
+  publish_date: string;
+  title: string;
+  description: string;
+  id: string | number;
+  author_name: string;
+  total_likes: number;
+}
+
+interface BlogCardProps {
+  blog: Blog;
+}
+
+const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   return (
-    <div key={blog.id} className="card w-full bg-base-100 shadow-xl">
+    <div className="card w-full bg-base-100 shadow-xl">
       <figure>
         <Image
           src={blog.blog_image}
           width={600}
           height={100}
           alt="blog image"
-          className="rounded-xl h-96"
+          className="rounded-xl h-64"
         />
       </figure>
       <div className="card-body">
-        <p className="flex items-center justify-center text-accent bg-cyan-100 w-44 px-2 py-1 rounded-full">
+        <p className="flex items-center justify-center text-accent bg-cyan-100 w-44 rounded-full py-1">
           <FaCalendar className="mr-2" />
           {blog.publish_date}
         </p>
-        <h2 className="card-title">{blog.title}</h2>
+        <h2 className="card-title">
+          {blog.title.length > 30
+            ? blog.title.slice(0, 30) + "..."
+            : blog.title}
+        </h2>
         <p className="text-gray-500">
           {blog.description.length > 100
-            ? blog.description.slice(0, 180) + "..."
+            ? blog.description.slice(0, 60) + "..."
             : blog.description}
           <Link href={`/blogs/${blog.id}`} className="text-accent">
             Read More
@@ -52,4 +70,4 @@ const LatestBlogCard = ({ blog }) => {
   );
 };
 
-export default LatestBlogCard;
+export default BlogCard;
