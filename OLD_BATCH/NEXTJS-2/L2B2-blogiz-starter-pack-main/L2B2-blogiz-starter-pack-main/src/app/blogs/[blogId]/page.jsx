@@ -6,6 +6,14 @@
 //         blogId:string
 //     }
 // }
+
+export const generateStaticParams = async () => {
+    const res = await fetch("http://localhost:9000/blogs")
+    const blogs=await res.json()
+    return blogs.map((blog) => {
+        blogId:blog.id
+    })
+}
 const BlogDetailPage = async({ params }) => {
     console.log(params)
 

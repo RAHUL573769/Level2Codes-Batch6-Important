@@ -3,8 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "./components/shared/Header";
 import Footer from "./components/shared/Footer";
-
-
+import Providers from "../lib/providers";
 
 const roboto = Roboto({
   weight: "400",
@@ -20,15 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" data-theme="light">
       <body className={roboto.className}>
-        <Header/>
-        <div className="min-h-screen">{children}</div>
-        <Footer />
+        <Providers>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
