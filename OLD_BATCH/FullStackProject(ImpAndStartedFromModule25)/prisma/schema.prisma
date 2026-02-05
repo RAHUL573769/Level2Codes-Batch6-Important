@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  DOCTOR
+  PATIENT
+}
+
+model User {
+  id    String @id
+  email String @unique
+
+  password            String
+  role                UserRole
+  needsPasswordChange Boolean    @default(true)
+  status              UserStatus @default(ACTIVE)
+  createdAt           DateTime   @default(now())
+
+  updatedAt DateTime @default(now())
+  admins    Admin? //one to one
+}
+
+model Admin {
+  id    String @id
+  name  String
+  email String @unique
+  user  User   @relation(fields: [email], references: [email])
+
+  profilePhoto  String?
+  contactNumber String?
+  isDeleted     Boolean
+  createdAt     DateTime @default(now())
+
+  updatedAt DateTime @default(now())
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
