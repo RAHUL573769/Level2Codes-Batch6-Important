@@ -1,13 +1,9 @@
-// import { PrismaClient } from "@prisma/client";
 
 import * as bcrypt from 'bcrypt'
 import { UserRole } from '../../../../generated/prisma/enums';
-import { PrismaClient } from '../../../../generated/prisma/client';
 import { prisma } from '../../../../lib/prisma';
-// import { Prisma } from "@prisma/client"
 
-
-
+// const prisma = new PrismaClient();
 
 const createAdmin = async (data: any) => {
     const hashedPassword: string = await bcrypt.hash(data.password, 12)
@@ -18,7 +14,7 @@ const createAdmin = async (data: any) => {
         role: UserRole.ADMIN
     }
 
-    const result = await prisma.$transaction(async (transactionClient: any) => {
+    const result = await prisma.$transaction(async (transactionClient: { user: { create: (arg0: { data: { email: any; password: string; role: "ADMIN"; }; }) => any; }; admin: { create: (arg0: { data: any; }) => any; }; }) => {
         await transactionClient.user.create({
             data: userData
         });
@@ -33,6 +29,7 @@ const createAdmin = async (data: any) => {
     return result;
 };
 
-export const UserService = {
-    createAdmin,
-};
+
+export const userService = {
+    createAdmin
+}
