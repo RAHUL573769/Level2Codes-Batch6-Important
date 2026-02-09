@@ -1,22 +1,57 @@
-import { prisma } from "../../../../lib/prisma"
+// import { Prisma } from "@prisma/client";
+// import { paginationHelper } from "../../../helpars/paginationHelper";
+import { Prisma } from "../../../../generated/prisma/browser";
+import { prisma } from "../../../../lib/prisma";
+import { paginationHelper } from "../../../helpers/pagiationHelpers";
+import { adminSearchAbleFields } from "../../../shared/pick";
 
+// export const adminFilterableFields = ['name', 'email', 'searchTerm', 'contactNumber'];
 
+// export const adminSearchAbleFields = ['name', 'email', 'contactNumber'];
 
-const getAdminFromDb = async (params: any) => {
+const getAllFromDB = async (params: any, options: any) => {
+    const { page, limit, skip } = paginationHelper.calculatePagination(options);
+    const { searchTerm, ...filterData } = params;
+    const andCondions: Prisma.AdminWhereInput[] = [];
+
+    //console.log(filterData);
+    if (params.searchTerm) {
+        andCondions.push({
+            OR: adminSearchAbleFields.map(field => ({
+                [field]: {
+                    contains: params.searchTerm,
+                    mode: 'insensitive'
+                }
+            }))
+        })
+    };
+
+    if (Object.keys(filterData).length > 0) {
+        andCondions.push({
+            AND: Object.keys(filterData).map(key => ({
+                [key]: {
+                    equals: filterData[key]
+                }
+            }))
+        })
+    }
+
+    //console.dir(andCondions, { depth: 'inifinity' })
+    const whereConditons: Prisma.AdminWhereInput = { AND: andCondions }
+
     const result = await prisma.admin.findMany({
-        where: {
-            name: {
-                contains: params.searchTerm,
-                mode: "insensitive"
-            },
-            email: {
-                contains: params.searchTerm,
-                mode: "insensitive"
-            }
+        where: whereConditons,
+        skip,
+        take: limit,
+        orderBy: options.sortBy && options.sortOrder ? {
+            [options.sortBy]: options.sortOrder
+        } : {
+            createdAt: 'desc'
         }
-    })
-    return result
+    });
+    return result;
 }
 
-
-export const AdminService = { getAdminFromDb }
+export const AdminService = {
+    getAllFromDB
+}
