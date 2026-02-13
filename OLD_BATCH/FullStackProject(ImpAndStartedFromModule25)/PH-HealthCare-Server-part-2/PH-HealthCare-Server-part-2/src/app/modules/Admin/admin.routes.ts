@@ -1,7 +1,9 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { AdminController } from './admin.controller';
 
 const router = express.Router();
+
+
 
 router.get('/', AdminController.getAllFromDB)
 

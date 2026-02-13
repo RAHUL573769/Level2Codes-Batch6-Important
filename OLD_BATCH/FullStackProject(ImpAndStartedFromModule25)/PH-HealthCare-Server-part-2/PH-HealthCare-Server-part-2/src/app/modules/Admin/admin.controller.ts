@@ -3,7 +3,7 @@ import { AdminService } from './admin.service';
 import pick from '../../../shared/pick';
 import { adminFilterableFields } from './admin.constant';
 
-const catchAsync = (fn: RequestHandler) => {
+export const catchAsync = (fn: RequestHandler) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             await fn(req, res, next)

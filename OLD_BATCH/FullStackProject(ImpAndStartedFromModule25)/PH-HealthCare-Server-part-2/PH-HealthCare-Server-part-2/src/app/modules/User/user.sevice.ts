@@ -7,59 +7,34 @@ import { UserRole } from '../../../../generated/prisma/enums';
 // import prisma from '../../../shared/prisma'
 
 const createAdmin = async (data: any) => {
-    const hashedPassword: string = await bcrypt.hash(data.password, 12)
+    const hashedPassword: string = await bcrypt.hash(data.password, 12);
 
-    const userData = {
-        email: data.admin.email,
-        password: hashedPassword,
-        role: UserRole.ADMIN
-    }
-
-    // const result = await prisma.$transaction(async (tx) => {
-    //     const createdUser = await tx.user.create({
-    //         data: userData
-    //     });
-
-    //     const createdAdminData = await tx.admin.create({
-    //         data: {
-    //             ...data.admin,
-    //             userId: createdUser.id
-    //         }
-    //     });
-
-    //     return createdAdminData;
-    // });
-    // const result = await prisma.admin.create({
-    //     data: {
-    //         ...data.admin,
-    //         user: {
-    //             create: {
-    //                 email: data.admin.email,
-    //                 password: hashedPassword,
-    //                 role: UserRole.ADMIN
-    //             }
-    //         }
-    //     }
-    // });
-
-    const result = await prisma.admin.create({
-        data: {
-            name: data.admin.name,
-            contactNumber: data.admin.contactNumber,
-            profilePhoto: data.admin.profilePhoto, // if exists
-
-            user: {
-                create: {
-                    email: data.admin.email,   // ✅ put email here
-                    password: hashedPassword,
-                    role: UserRole.ADMIN
-                }
+    const result = await prisma.$transaction(async (tx) => {
+        // 1️⃣ Create User
+        await tx.user.create({
+            data: {
+                email: data.admin.email,
+                password: hashedPassword,
+                role: UserRole.ADMIN
             }
-        }
+        });
+
+        // 2️⃣ Create Admin (NO userId)
+        const createdAdminData = await tx.admin.create({
+            data: {
+                name: data.admin.name,
+                email: data.admin.email, // must match user email
+                contactNumber: data.admin.contactNumber,
+                profilePhoto: data.admin.profilePhoto
+            }
+        });
+
+        return createdAdminData;
     });
 
     return result;
 };
+
 
 export const userService = {
     createAdmin
