@@ -10,6 +10,8 @@ app.use(cors());
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use("/uploads1", express.static("uploads1"));
+
 
 app.get('/', (req: Request, res: Response) => {
     res.send({
