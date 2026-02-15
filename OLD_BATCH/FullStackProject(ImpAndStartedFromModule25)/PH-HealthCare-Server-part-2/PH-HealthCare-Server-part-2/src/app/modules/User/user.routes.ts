@@ -58,33 +58,21 @@ const validateRequest = (schema: ZodSchema) =>
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(process.cwd(), "uploads1"));
+        cb(null, path.join(process.cwd(), 'uploads'))
     },
     filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage })
 
 
-        cb(null, file.originalname);
-    },
-});
 
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, '/uploads')
-//         cb(null, path(process.cwd(), "uploads"))
-//     },
-//     filename: function (req, file, cb) {
-//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-//         cb(null, file.fieldname + '-' + uniqueSuffix)
-//         cb(null, file.originalname)
-
-//     },
-
-// })
-const upload = multer({ storage });
 console.log(upload)
-console.log(path.join(process.cwd(), "uploads1"))
-console.log(path.join(process.cwd(), "uploads1"))
+// console.log(path.join(process.cwd(), "uploads1"))
+// console.log(path.join(process.cwd(), "uploads1"))
 router.post("/",
     upload.single("file"), //use file name for uploading
     // auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
