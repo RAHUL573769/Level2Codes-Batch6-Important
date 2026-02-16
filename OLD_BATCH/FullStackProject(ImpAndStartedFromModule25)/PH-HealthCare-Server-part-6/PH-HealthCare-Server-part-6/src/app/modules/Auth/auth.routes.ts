@@ -18,12 +18,12 @@ router.post(
 
 router.post(
     '/change-password',
-    auth(
-        UserRole.SUPER_ADMIN,
-        UserRole.ADMIN,
-        UserRole.DOCTOR,
-        UserRole.PATIENT
-    ),
+    // auth(
+    //     UserRole.SUPER_ADMIN,
+    //     UserRole.ADMIN,
+    //     UserRole.DOCTOR,
+    //     UserRole.PATIENT
+    // ),
     AuthController.changePassword
 );
 

@@ -68,10 +68,18 @@ const changeProfileStatus = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    // console.log(req.user)
+
+
+});
+
 export const userController = {
     createAdmin,
     createDoctor,
     createPatient,
     getAllFromDB,
+    getMyProfile,
     changeProfileStatus
 }

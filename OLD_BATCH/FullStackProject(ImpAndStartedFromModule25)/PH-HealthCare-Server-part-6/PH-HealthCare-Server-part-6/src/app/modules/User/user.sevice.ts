@@ -189,11 +189,14 @@ const changeProfileStatus = async (id: string, status: UserRole) => {
     return updateUserStatus;
 }
 
+const getMyProfile = async () => {
+
+}
 
 export const userService = {
     createAdmin,
     createDoctor,
     createPatient,
     getAllFromDB,
-    changeProfileStatus
+    changeProfileStatus, getMyProfile
 }
