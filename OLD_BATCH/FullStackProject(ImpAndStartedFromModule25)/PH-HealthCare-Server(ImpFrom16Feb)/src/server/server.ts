@@ -1,10 +1,7 @@
-import express, { Request, Response } from "express"
 import app from "../app/app"
+import config from "../config"
 
 
-
-const port = 3000
-
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`)
+app.listen(config.PORT, () => {
+    console.log(`Server running at http://localhost:${config.PORT}`)
 })
