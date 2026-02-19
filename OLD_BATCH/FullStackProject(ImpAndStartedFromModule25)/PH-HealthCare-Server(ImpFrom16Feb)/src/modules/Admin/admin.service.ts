@@ -61,7 +61,9 @@
 
 
 
+import { Admin } from "../../../generated/prisma/browser"
 import { prisma } from "../../../lib/prisma"
+import { adminSearchAbleFields } from "./admin.constants"
 
 
 const getAdminDataFromDb = async (
@@ -72,7 +74,7 @@ const getAdminDataFromDb = async (
     const { search, ...filteredData } = payload
     const andConditions = []
     console.log('FD', filteredData)
-    const adminSearchAbleFields = ["name", "email"]
+
 
     // 🔍 Search by name OR email
     if (search) {
@@ -117,5 +119,41 @@ const getAdminDataFromDb = async (
 
     return data
 }
+const getAdminById = async (id: string) => {
+    const result = await prisma.admin.findUnique({ where: { id } })
+    return result
+}
+const updateAdminService = async (id: string, data: Partial<Admin>) => {
+    const result = await prisma.admin.update({ where: { id }, data })
+    return result
+}
 
-export const AdminServices = { getAdminDataFromDb }
+const deleteFromDb = async (id: string) => {
+    const result = await prisma.$transaction(async (x) => {
+        const adminDeletedData = await x.admin.delete({
+            where: {
+                id
+            }
+        })
+    })
+}
+
+const softDeleteFromDb = async (id: string) => {
+    await prisma.admin.findUniqueOrThrow({
+        where: { id }
+    })
+
+
+    const result = await prisma.$transaction(async (x) => {
+        const adminDeletedData = await x.admin.update({
+            where: {
+                id
+            },
+            data: { isDeleted: true }
+        })
+    })
+}
+
+
+
+export const AdminServices = { softDeleteFromDb, deleteFromDb, getAdminDataFromDb, getAdminById, updateAdminService }
