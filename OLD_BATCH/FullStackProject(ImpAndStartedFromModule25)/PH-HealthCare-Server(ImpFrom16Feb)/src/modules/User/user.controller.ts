@@ -1,8 +1,8 @@
 
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { userService } from "./user.service"
 
-const createAdminController = async (req: Request, res: Response) => {
+const createAdminController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // console.log("Create Admin")
         // console.log(req.body)
@@ -17,11 +17,12 @@ const createAdminController = async (req: Request, res: Response) => {
 
     } catch (error: any) {
 
-        res.status(500).json({
-            message: "Admin Created Failed",
-            status: false,
-            data: error.name
-        })
+        // res.status(500).json({
+        //     message: "Admin Created Failed",
+        //     status: false,
+        //     data: error.name
+        // })
+        next(error)
 
     }
 }
