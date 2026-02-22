@@ -8,7 +8,7 @@ const loginController = catchAsync(
             const result = await LoginUserService.loginUserService(req.body);
 
             const { refreshToken } = result;
-            // console.log("Refresh Token", refreshToken)
+            console.log("Refresh Token", refreshToken)
             res.cookie("RefreshToken", refreshToken, {
                 secure: false,
                 httpOnly: true
@@ -22,5 +22,21 @@ const loginController = catchAsync(
         }
     }
 );
+const changePassword = catchAsync(async (req: Request, res: Response) => {
+    console.log("Req-User")
 
-export const LoginController = { loginController }
+})
+const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { refreshToken } = req.cookies
+        console.log('32', refreshToken)
+        next()
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+const forgotPassword = () => { }
+const resetPassword = () => { }
+
+export const LoginController = { resetPassword, forgotPassword, loginController, changePassword, refreshToken }
