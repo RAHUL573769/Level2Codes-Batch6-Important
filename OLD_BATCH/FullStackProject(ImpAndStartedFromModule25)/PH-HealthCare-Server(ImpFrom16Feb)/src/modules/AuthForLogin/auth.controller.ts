@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../shared/catchAsync";
 import { LoginUserService } from "./auth.service";
 import { date } from "zod/v4";
+import { successResponse } from "../../helpers/errorResponse";
+import httpStatus from "http-status";
 
 const loginController = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -24,7 +26,7 @@ const loginController = catchAsync(
 
     }
 );
-const changePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+const changePassword = catchAsync(async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
     try {
         console.log("Req-User From AuthController", req.user)
 
@@ -52,7 +54,15 @@ const refreshToken = async (req: Request, res: Response) => {
 const resetPassword = async (req: Request, res: Response) => {
 
 }
-const forgotPassword = () => { }
+const forgotPassword = async (req: Request, res: Response) => {
+    const result = await LoginUserService.forgetPasswordService(req.body)
+    successResponse(res, {
+        statusCode: httpStatus.OK,
+        status: true,
+        message: "Check your email!",
+        data: result
+    })
+}
 
 
 export const LoginController = { resetPassword, forgotPassword, loginController, changePassword, refreshToken }
