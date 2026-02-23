@@ -1,5 +1,7 @@
 import express from 'express';
 import { LoginController } from './auth.controller';
+import { auth } from '../../middlewares/auth';
+import { UserRole } from '../../../generated/prisma/enums';
 const router = express.Router()
 
 
@@ -11,12 +13,12 @@ router.post(
 
 router.post(
     '/change-password',
-    // auth(
-    //     UserRole.SUPER_ADMIN,
-    //     UserRole.ADMIN,
-    //     UserRole.DOCTOR,
-    //     UserRole.PATIENT
-    // ),
+    auth(
+        UserRole.SUPER_ADMIN,
+        UserRole.ADMIN,
+        UserRole.DOCTOR,
+        UserRole.PATIENT
+    ),
     LoginController.changePassword
 );
 

@@ -100,4 +100,32 @@ const refreshTokenService = async (token: string) => {
 
 };
 
-export const LoginUserService = { loginUserService, refreshTokenService }
+const changePasswordService = async (user: any, payload: any) => {
+
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: user.email,
+            status: UserStatus.ACTIVE
+        }
+    })
+    console.log("UserData for PasswordChage From AuthService", userData)
+    console.log("Payload for PasswordChage From AuthService", payload)
+    const isPasswordCorrect: boolean = await bcrypt.compare(payload.oldPassword, userData.password)
+    console.log("IsPasswordChange From AuthService", isPasswordCorrect)
+    // if (!isPasswordCorrect) {
+    //     throw new Error("Password Incorrect")
+    // }
+    const hashedPassword = await bcrypt.hash(payload.newPassword, 12)
+    console.log("HashedPassword", hashedPassword)
+    await prisma.user.update({
+        where: {
+            email: userData.email
+        },
+        data: {
+            password: hashedPassword,
+            needPasswordChange: false
+        }
+    })
+
+}
+export const LoginUserService = { changePasswordService, loginUserService, refreshTokenService }

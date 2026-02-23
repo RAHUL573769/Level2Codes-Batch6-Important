@@ -14,7 +14,7 @@ export const auth = (...roles: string[]) => {
             }
             const verifiedUser = verifyToken(token as string, config.ACCESS_TOKEN_SECRET as string)
             console.log("VerifiedUser", verifiedUser)
-            // req.user = verifiedUser
+            req.user = verifiedUser
             if (roles.length && !roles.includes(verifiedUser.role)) {
                 throw new Error("YOU are not authorized")
             }

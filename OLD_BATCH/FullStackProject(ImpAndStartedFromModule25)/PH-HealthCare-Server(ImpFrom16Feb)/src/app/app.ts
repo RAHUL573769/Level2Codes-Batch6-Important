@@ -1,6 +1,8 @@
 import { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import express from 'express';
+import cookieParser from "cookie-parser";
+
 
 import router from "../routes/routes";
 import { globalErrorHandlers } from '../middlewares/globalErorHandlers';
@@ -10,6 +12,7 @@ require('dotenv').config() // or import 'dotenv/config' if you're using ES6
 
 const app: Application = express()
 app.use(cors());
+app.use(cookieParser());
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
