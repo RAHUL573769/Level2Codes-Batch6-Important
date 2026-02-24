@@ -3,7 +3,6 @@ import { AdminController } from './admi.controller';
 import z from 'zod';
 import { object } from './../../../node_modules/zod/v4/classic/schemas';
 import { AnyZodObject } from 'zod/v3';
-import { update, validateRequest } from '../../middlewares/catchAsync';
 // import { AnyZodObject } from 'zod';
 
 
@@ -43,6 +42,6 @@ const router = express.Router()
 
 router.get("/", AdminController.getAdminData)
 router.get("/:id", AdminController.getSpecificAdmin)
-router.patch("/:id", validateRequest(update), AdminController.updateSpecificAdmin)
+router.patch("/:id", AdminController.updateSpecificAdmin)
 router.delete("/:id", AdminController.deleteFromDb)
 export const AdminRouter = router

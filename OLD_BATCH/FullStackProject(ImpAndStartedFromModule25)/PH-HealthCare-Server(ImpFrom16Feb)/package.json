@@ -16,7 +16,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.2.3",
     "@types/pg": "^8.16.0",
-    "prisma": "^7.4.1",
+    "prisma": "^6.19.2",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
@@ -38,10 +38,11 @@
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^2.2.1",
     "nodemailer": "^8.0.1",
     "path": "^0.12.7",
     "pg": "^8.18.0",
-    "zod": "^3.25.76"
+    "zod": "^4.3.6"
   },
   "description": ""
 }

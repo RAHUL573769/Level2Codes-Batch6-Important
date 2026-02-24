@@ -7,7 +7,7 @@ import { Request } from "express";
 const createAdminService = async (
     data: any
 ) => {
-// console.log('22', data)
+    // console.log('22', data)
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword: string = await bcrypt.hash(data.password, 12);
 

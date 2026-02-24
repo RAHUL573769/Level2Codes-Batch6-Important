@@ -1,10 +1,9 @@
 import * as bcrypt from 'bcrypt'
-// import { UserRole } from '@prisma/client'
-import { prisma } from '../../../../Resources/lib/prisma';
-import { UserRole } from '../../../../generated/prisma/enums';
 
-// import prisma from '../../../shared/prisma';
-// import prisma from '../../../shared/prisma'
+import { UserRole } from '../../../../generated/prisma/enums';
+import { prisma } from '../../../../Resources/lib/prisma';
+
+
 
 const createAdmin = async (data: any) => {
     const hashedPassword: string = await bcrypt.hash(data.password, 12);
