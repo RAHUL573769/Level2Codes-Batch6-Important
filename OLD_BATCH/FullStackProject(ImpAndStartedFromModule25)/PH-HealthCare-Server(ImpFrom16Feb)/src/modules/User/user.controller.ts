@@ -5,7 +5,7 @@ import { userService } from "./user.service"
 const createAdminController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // console.log("Create Admin")
-        // console.log(req.body)
+        console.log(req.body.data)
         const data = req.body
         const result = await userService.createAdminService(data)
         // res.send(result)

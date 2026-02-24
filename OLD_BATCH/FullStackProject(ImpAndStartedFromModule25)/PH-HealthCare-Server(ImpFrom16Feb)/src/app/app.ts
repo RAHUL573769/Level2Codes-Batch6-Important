@@ -13,6 +13,7 @@ require('dotenv').config() // or import 'dotenv/config' if you're using ES6
 const app: Application = express()
 app.use(cors());
 app.use(cookieParser());
+
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
