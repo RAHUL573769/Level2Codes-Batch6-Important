@@ -4,7 +4,10 @@ import { UserRole } from '../../../generated/prisma/enums';
 import { verifyToken } from '../../helpers/jwtHelpers';
 import config from '../../config';
 import { auth } from '../../middlewares/auth';
-import { fileUploader } from '../../helpers/fileUploaders';
+import { validateRequest } from '../../middlewares/validateequest';
+// import { createAdmin1 } from './user.validations';
+import { createAdmine, createDoctor } from './user.validation';
+import { fileUploader } from '../../helpers/fileUploadersCopy';
 // import multer from 'multer';
 // import path from 'node:path';
 
@@ -43,11 +46,23 @@ import { fileUploader } from '../../helpers/fileUploaders';
 
 // const upload = multer({ storage: storage })
 const router = express.Router()
+
+
 router.post("/",
     // auth(UserRole.ADMIN, UserRole.DOCTOR),
 
-    // fileUploader.upload.single("file"),
+    fileUploader.upload.single("file"),
+
+    validateRequest(createAdmine),
     userController.createAdminController)
 
+
+router.post("/create-doctor",
+    // auth(UserRole.ADMIN, UserRole.DOCTOR),
+
+    // fileUploader.upload.single("file"),
+    fileUploader.upload.none(),
+    validateRequest(createDoctor),
+    userController.createDoctorController)
 // router.post("/create-doctor", userController.createDoctorController)
 export const userRouter = router

@@ -1,31 +1,36 @@
-import { Application, Request, Response, NextFunction } from 'express';
+import { Application, Request, Response } from 'express';
 import cors from 'cors';
 import express from 'express';
 import cookieParser from "cookie-parser";
-
-
 import router from "../routes/routes";
+// import { globalErrorHandlers } from '../middlewares/globalErrorHandlers';
+import 'dotenv/config';
 import { globalErrorHandlers } from '../middlewares/globalErorHandlers';
-require('dotenv').config() // or import 'dotenv/config' if you're using ES6
+
+const app: Application = express();
 
 
 
-const app: Application = express()
-// Enable URL-encoded form data parsing
-app.use(express.urlencoded({ extended: true }));
+// Body parsers
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-app.use(cookieParser())
-app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+
+
+
+app.use(express.json());        // for JSON
+app.use(express.urlencoded({ extended: true })); // for form data
+// Cookie parser
+app.use(cookieParser());
+
+// Test route
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!')
-})
-app.use("/api/v1", router)
-app.use(globalErrorHandlers)
-// app.use()
-// app.use('/api/v1/user', userRouter);
-// app.use('/api/v1/admin', AdminRouter);
+    res.send('Hello World!');
+});
+
+// API routes
+app.use("/api/v1", router);
+
+// Global error handler (must be last)
+app.use(globalErrorHandlers);
+
 export default app;
-
-

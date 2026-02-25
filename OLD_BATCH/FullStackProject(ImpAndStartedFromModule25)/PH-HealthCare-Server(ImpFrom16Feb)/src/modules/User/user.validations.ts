@@ -1,6 +1,6 @@
 import z from "zod";
 
-const createAdmin = z.object({
+const createAdmin1 = z.object({
     password: z.string({
         message: "Password is required"
     }),
@@ -76,7 +76,3 @@ const createAdmin = z.object({
 //     })
 // })
 
-export const userValidation = {
-    createAdmin,
-
-}

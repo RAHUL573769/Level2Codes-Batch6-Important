@@ -18,6 +18,7 @@ const allRouterArray = [
         route: AdminRouter
     },
 
+
     {
         path: "/auth",
         route: AuthRouter

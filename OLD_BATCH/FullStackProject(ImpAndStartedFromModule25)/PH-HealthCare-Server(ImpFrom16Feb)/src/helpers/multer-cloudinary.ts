@@ -35,8 +35,7 @@
 //             folder: `uploads/${folder}`,
 //             public_id: uniqueName,
 //             resource_type: "auto", // ✅ important fix
-//         }; import { CloudinaryStorage } from 'multer-storage-cloudinary';
-//         import { CloudinaryStorage } from 'multer-storage-cloudinary';
+//         };
 
 //     },
 // });
