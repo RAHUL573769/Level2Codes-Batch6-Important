@@ -18,6 +18,30 @@ const createAdminService = async (
         console.log(req.body)
     }
 
+
+
+    const hashedPassword: string = await bcrypt.hash(req.body.password, 12)
+
+    const userData = {
+        email: req.body.admin.email,
+        password: hashedPassword,
+        role: UserRole.ADMIN
+    }
+
+    const result = await prisma.$transaction(async (transactionClient: any) => {
+        await transactionClient.user.create({
+            data: userData
+        });
+
+        const createdAdminData = await transactionClient.admin.create({
+            data: req.body.admin
+        });
+
+        return createdAdminData;
+    });
+
+    return result;
+
     // const salt = bcrypt.genSaltSync(10);
     // const hashedPassword: string = await bcrypt.hash(data.password, 12);
 
