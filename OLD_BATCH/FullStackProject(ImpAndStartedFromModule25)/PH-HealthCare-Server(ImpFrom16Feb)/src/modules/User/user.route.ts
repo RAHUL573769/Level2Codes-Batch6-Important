@@ -47,7 +47,7 @@ import { fileUploader } from '../../helpers/fileUploadersCopy';
 // const upload = multer({ storage: storage })
 const router = express.Router()
 
-
+router.get("/", userController.getAdminData)
 router.post("/",
     // auth(UserRole.ADMIN, UserRole.DOCTOR),
 
@@ -61,7 +61,7 @@ router.post("/create-doctor",
     // auth(UserRole.ADMIN, UserRole.DOCTOR),
 
     // fileUploader.upload.single("file"),
-    fileUploader.upload.none(),
+    fileUploader.upload.single("file"),
     validateRequest(createDoctor),
     userController.createDoctorController)
 // router.post("/create-doctor", userController.createDoctorController)

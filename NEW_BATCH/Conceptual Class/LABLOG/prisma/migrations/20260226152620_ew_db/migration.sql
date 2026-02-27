@@ -1,15 +1,9 @@
-/*
-  Warnings:
-
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "User";
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'STUDENT');
 
 -- CreateTable
 CREATE TABLE "user" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,

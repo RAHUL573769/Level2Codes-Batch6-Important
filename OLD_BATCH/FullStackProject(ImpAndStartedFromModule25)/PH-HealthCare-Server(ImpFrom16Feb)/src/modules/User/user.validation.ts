@@ -37,11 +37,12 @@ export const createDoctor = z.object({
         address: z.string({ message: "Address is  Needed" }).optional(),
         registrationNumber: z.string(),
         experience: z.number(),
-        gender: z.enum([Gender.FEMALE, Gender.MALE])
+        gender: z.enum([Gender.FEMALE, Gender.MALE]),
+        appointmentFee: z.number(),
+        qualification: z.string(),
+        currentWorkingPlace: z.string(),
+        designation: z.string(),
     }),
-    appointmentFee: z.number(),
-    qualification: z.string(),
-    currentWorkingPlace: z.string(),
-    designation: z.string(),
+
 
 })
