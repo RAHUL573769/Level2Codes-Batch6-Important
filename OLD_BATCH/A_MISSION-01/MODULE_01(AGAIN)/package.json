@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "tsx watch  src/index.ts",
+    "dev1": "tsx watch  src/object1.ts"
+  },
+  "dependencies": {
+    "tsc": "^2.0.4"
+  }
+}
