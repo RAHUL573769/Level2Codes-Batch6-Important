@@ -69,7 +69,17 @@ const getPostFromDb = async () => {
 //     return result
 
 // }
-const getSpecificPostFromDb = async (payload: { search: string | undefined; tags: string[], isFeatured: boolean }) => {
+const getSpecificPostFromDb = async (
+    payload: {
+        search?: string;
+        tags: string[];
+        isFeatured?: boolean;
+        page: number;
+        limit: number;
+        skip: number;
+    }
+    // payload: { search: string | undefined; tags: string[], isFeatured: boolean, page: number, limit: number, skip: number }
+) => {
 
     const andConditions: PostWhereInput[] = []
     if (payload.search) {
@@ -103,69 +113,76 @@ const getSpecificPostFromDb = async (payload: { search: string | undefined; tags
             },
         })
     }
-    if (typeof payload.isFeatured === "boolean") {
+    // if (typeof payload.isFeatured === "boolean") {
+    //     andConditions.push({
+    //         isFeatured: payload.isFeatured,
+
+    //     })
+    // }
+    if (payload.isFeatured !== undefined) {
         andConditions.push({
             isFeatured: payload.isFeatured,
-
         })
     }
     console.log(typeof (payload.isFeatured))
     const result = await prisma.post.findMany({
-        where: {
+        take: payload.limit,
+        skip: payload.skip,
+        // where: {
+        //     // AND:
+        //     //     andConditions
+        //     // {
+        //     //     OR: [
+        //     //         {
+        //     //             title: {
+        //     //                 contains: payload.search as string,
+        //     //                 mode: "insensitive",
+        //     //             },
+        //     //         },
+        //     //         {
+        //     //             content: {
+        //     //                 contains: payload.search as string,
+        //     //                 mode: "insensitive",
+        //     //             },
+        //     //         },
+        //     //         {
+        //     //             tags: {
+        //     //                 has: payload.search as string,
+        //     //             },
+        //     //         },
+        //     //     ],
+        //     // },
 
-            AND:
-                andConditions
-            // {
-            //     OR: [
-            //         {
-            //             title: {
-            //                 contains: payload.search as string,
-            //                 mode: "insensitive",
-            //             },
-            //         },
-            //         {
-            //             content: {
-            //                 contains: payload.search as string,
-            //                 mode: "insensitive",
-            //             },
-            //         },
-            //         {
-            //             tags: {
-            //                 has: payload.search as string,
-            //             },
-            //         },
-            //     ],
-            // },
+        //     // {
+        //     //     tags: {
+        //     //         hasEvery: payload.tags,
+        //     //     },
+        //     // }
 
-            // {
-            //     tags: {
-            //         hasEvery: payload.tags,
-            //     },
-            // }
-
-            // OR: [
-            //     {
-            //         title: {
-            //             contains: payload.search as string,
-            //             mode: "insensitive",
-            //         },
-            //     },
-            //     {
-            //         content: {
-            //             contains: payload.search as string,
-            //             mode: "insensitive",
-            //         },
-            //     },
-            //     {
-            //         tags: {
-            //             has: payload.search as string,
-            //         },
-            //     },
-            // ],
-            // tags: {
-            //     hasEvery: payload.tags,
-            // },
-        },
+        //     // OR: [
+        //     //     {
+        //     //         title: {
+        //     //             contains: payload.search as string,
+        //     //             mode: "insensitive",
+        //     //         },
+        //     //     },
+        //     //     {
+        //     //         content: {
+        //     //             contains: payload.search as string,
+        //     //             mode: "insensitive",
+        //     //         },
+        //     //     },
+        //     //     {
+        //     //         tags: {
+        //     //             has: payload.search as string,
+        //     //         },
+        //     //     },
+        //     // ],
+        //     // tags: {
+        //     //     hasEvery: payload.tags,
+        //     // },
+        // },
+        where: andConditions.length > 0 ? { AND: andConditions } : {}
     });
 
     // console.log("result", result);
