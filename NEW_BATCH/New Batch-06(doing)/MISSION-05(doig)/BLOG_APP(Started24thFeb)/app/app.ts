@@ -6,7 +6,7 @@ import cors from "cors"
 
 
 const app: Application = express()
-
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
@@ -15,7 +15,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use("/api/v1", router)
-app.all("/api/auth/*splat", toNodeHandler(auth));
+
 
 // app.all("/api/auth/*", toNodeHandler(auth));
 export default app
