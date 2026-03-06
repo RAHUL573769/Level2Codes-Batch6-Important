@@ -10,5 +10,6 @@ export default {
     APP_URL: process.env.APP_URL,
     APP_NAME: process.env.APP_NAME,
     APP_PASSWORD: process.env.APP_PASSWORD,
-    APP_GMAIL: process.env.APP_GMAIL
+    APP_GMAIL: process.env.APP_GMAIL,
+    APP_URL1: process.env.APP_URL1
 }
