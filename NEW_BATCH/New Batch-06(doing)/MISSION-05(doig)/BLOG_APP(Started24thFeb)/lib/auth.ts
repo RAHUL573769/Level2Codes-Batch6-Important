@@ -15,6 +15,8 @@ const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false,
+
+
     auth: {
         user: config.APP_GMAIL,
         pass: config.APP_PASSWORD,
@@ -25,7 +27,7 @@ const transporter = nodemailer.createTransport({
 /* Better Auth Config */
 /* ----------------------------- */
 
-export const auth = betterAuth({
+export const betterAuth1 = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
@@ -64,13 +66,19 @@ export const auth = betterAuth({
         autoSignIn: false,
 
     },
-
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+        },
+    },
     /* ----------------------------- */
     /* Email Verification */
     /* ----------------------------- */
 
     emailVerification: {
         sendOnSignUp: true,
+        autoSignInAfterVerification: true,
         sendVerificationEmail: async ({ user, url, token }) => {
             try {
                 console.log("Email verification triggered");
@@ -219,4 +227,15 @@ If you did not create an account, you can safely ignore this email.
     advanced: {
         disableOriginCheck: true,
     },
+
+
+
+    google: {
+        prompt: 'select account',
+        accessType: "",
+        clientId: config.APP_GMAIL as string,
+        clientSecret: config.GOOGLE_CLIENT_SECRET as string,
+
+    },
+
 });

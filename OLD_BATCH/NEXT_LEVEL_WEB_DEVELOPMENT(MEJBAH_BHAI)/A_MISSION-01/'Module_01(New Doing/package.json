@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/adanced.ts",
+    "dev1": "tsx watch src/costraints.ts",
+    "dev2": "tsx watch src/asynchroous.ts",
+    "dev3": "tsx watch src/mappedType.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

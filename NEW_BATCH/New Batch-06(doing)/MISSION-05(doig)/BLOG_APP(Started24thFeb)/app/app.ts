@@ -1,13 +1,14 @@
 import express, { Application, Request, Response } from "express"
 import router from "../router/routes";
 import { toNodeHandler } from "better-auth/node";
-import { auth } from "../lib/auth";
+// import { auth } from "../lib/auth";
 import cors from "cors"
 import config from "../config";
+import { betterAuth1 } from "../lib/auth";
 
 
 const app: Application = express()
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(betterAuth1));
 app.use(express.json());
 app.use(cors({
     origin: config.APP_URL || "http://localhost:4000", credentials: true
