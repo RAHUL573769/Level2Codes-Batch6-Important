@@ -17,6 +17,7 @@
     "expess": "^0.0.1-security",
     "express": "^5.2.1",
     "mongodb": "^7.1.0",
+    "mongoose": "^9.2.4",
     "tsc": "^2.0.4",
     "tsx": "^4.21.0"
   },
