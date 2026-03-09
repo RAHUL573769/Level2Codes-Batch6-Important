@@ -3,8 +3,9 @@ import { PostWhereInput } from "../../generated/prisma/models"
 import { prisma } from "../../lib/prisma"
 
 
-const createPostIntoDb = async (data: Omit<Post, "id" | "createdAt" | "updatedAt">) => {
-    const result = await prisma.post.create({ data })
+const createPostIntoDb = async (data: Omit<Post, "id" | "createdAt" | "updatedAt">, userId: string) => {
+    // const result = await prisma.post.create({ data })
+    const result = await prisma.post.create({ data: { ...data, authorId: userId } })
     return result
 
 }

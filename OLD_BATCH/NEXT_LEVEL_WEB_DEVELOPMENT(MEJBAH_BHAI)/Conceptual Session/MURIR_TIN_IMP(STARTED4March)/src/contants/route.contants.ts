@@ -1,8 +1,8 @@
-import { userRouter } from "../routers/user.route";
+import { userRouter } from "../routes/user.routes";
 
 export const allRouter = [
 
-    { path: "/", route: userRouter },
+
     {
         path: "/users",
         route: userRouter

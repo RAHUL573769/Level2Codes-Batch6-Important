@@ -113,6 +113,8 @@ const getAdminDataFromDb = async (
             ? { AND: andConditions }
             : {}
 
+
+    const data1 = await prisma.admin.findMany({ where: { name: { contains: search } } })
     const data = await prisma.admin.findMany({
         where: whereConditions,
     })

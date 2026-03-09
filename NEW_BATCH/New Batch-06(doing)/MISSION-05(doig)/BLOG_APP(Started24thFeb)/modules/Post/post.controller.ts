@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { postService } from "./post.services";
 import { equal } from "node:assert";
+import { error } from "node:console";
 const parseBoolean = (value: any) => {
     if (value === "true") return true;
     if (value === "false") return false;
@@ -12,7 +13,13 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
 
-        const result = await postService.createPostIntoDb(req.body)
+        const user = req.user
+        console.log('Req.User', req.user)
+
+        if (req.user) {
+            error: "Post Craerin failed"
+        }
+        const result = await postService.createPostIntoDb(req.body, user?.id as string)
         res.status(200).json({
             data: result
         })

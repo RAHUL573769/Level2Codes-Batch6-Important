@@ -232,7 +232,7 @@ If you did not create an account, you can safely ignore this email.
 
     google: {
         prompt: 'select account',
-        accessType: "",
+        accessType: "offline",
         clientId: config.APP_GMAIL as string,
         clientSecret: config.GOOGLE_CLIENT_SECRET as string,
 
