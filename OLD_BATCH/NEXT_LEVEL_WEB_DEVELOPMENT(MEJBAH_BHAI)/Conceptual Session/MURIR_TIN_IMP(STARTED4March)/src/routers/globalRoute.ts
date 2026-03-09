@@ -1,5 +1,5 @@
 import express from 'express';
-import { userRouter } from './user.route';
+
 import { allRouter } from '../contants/route.contants';
 
 const globalRouter = express.Router()
