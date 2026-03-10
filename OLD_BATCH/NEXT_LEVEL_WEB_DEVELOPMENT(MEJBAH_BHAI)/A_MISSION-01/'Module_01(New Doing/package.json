@@ -9,6 +9,7 @@
     "dev2": "tsx watch src/asynchroous.ts",
     "dev3": "tsx watch src/mappedType.ts",
     "dev4": "tsx watch src/revision/Module-02/index.ts",
+    "dev5": "tsx watch src/Module03.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

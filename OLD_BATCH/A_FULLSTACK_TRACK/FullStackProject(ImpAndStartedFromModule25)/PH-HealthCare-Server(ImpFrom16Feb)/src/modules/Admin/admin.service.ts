@@ -73,6 +73,7 @@ const getAdminDataFromDb = async (
     console.log('Payload', payload)
     const { search, ...filteredData } = payload
     const andConditions = []
+
     console.log('FD', filteredData)
 
 
@@ -113,8 +114,34 @@ const getAdminDataFromDb = async (
             ? { AND: andConditions }
             : {}
 
+    // const andCondition2: any[] = []
+    // if (search) {
+    //     andCondition2.push({
+    //         OR: [
 
-    const data1 = await prisma.admin.findMany({ where: { name: { contains: search } } })
+    //             { name: { contains: search }, },
+    //             { email: { contains: search } }
+    //         ],
+
+    //     })
+
+    // }
+    // const whereConditions2 = { AND: andCondition2 }
+    // const data1 = await prisma.admin.findMany({
+    //     where: whereConditions2
+
+
+
+
+    //     OR: [
+
+    //         { name: { contains: search }, },
+    //         { email: { contains: search } }
+    //     ],
+
+
+
+    // })
     const data = await prisma.admin.findMany({
         where: whereConditions,
     })
