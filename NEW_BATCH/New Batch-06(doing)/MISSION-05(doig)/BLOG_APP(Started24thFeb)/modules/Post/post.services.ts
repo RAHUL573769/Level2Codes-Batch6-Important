@@ -6,6 +6,8 @@ import { prisma } from "../../lib/prisma"
 const createPostIntoDb = async (data: Omit<Post, "id" | "createdAt" | "updatedAt">, userId: string) => {
     // const result = await prisma.post.create({ data })
     const result = await prisma.post.create({ data: { ...data, authorId: userId } })
+
+    console.log(result)
     return result
 
 }
