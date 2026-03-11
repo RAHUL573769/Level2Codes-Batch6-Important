@@ -447,10 +447,6 @@ export type UseLogUncheckedUpdateManyWithoutEquipmentNestedInput = {
   deleteMany?: Prisma.UseLogScalarWhereInput | Prisma.UseLogScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type UseLogCreateWithoutUserInput = {
   id?: string
   startTime: Date | string
