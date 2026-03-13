@@ -2,21 +2,22 @@ import { NextFunction, Request, Response } from "express";
 
 import { UserService } from "../services/user.service";
 import status from "http-status";
+import { successResponse } from "../helpers/sucessResponse";
 
 
 
-const successResponse = <T>(res: Response, req: Request, jsonData: {
-    statusCode: number,
-    success: boolean,
-    message: string,
-    data: T | null | undefined
-}) => {
+// const successResponse = <T>(res: Response, req: Request, jsonData: {
+//     statusCode: number,
+//     success: boolean,
+//     message: string,
+//     data: T | null | undefined
+// }) => {
 
-    res.status(jsonData.statusCode).json({
-        message: jsonData.message,
-        data: jsonData.data
-    })
-}
+//     res.status(jsonData.statusCode).json({
+//         message: jsonData.message,
+//         data: jsonData.data
+//     })
+// }
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -49,14 +50,44 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await UserService.getUsersServices()
-        res.status(200).json({
-            message: "User Fetched",
+        successResponse(res, req, {
+            statusCode: 200,
+            message: "All User Fetched",
+            success: true,
             data: data
         })
+        // res.status(200).json({
+        //     message: "User Fetched",
+        //     data: data
+        // })
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 
 }
 
-export const UserController = { createUser, getUser }
+
+
+const getSingleUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const id = req.params.id;
+        const data = await UserService.getSingleUserServices(id as string)
+        successResponse(res, req, {
+            statusCode: 200,
+            message: "All User Fetched",
+            success: true,
+            data: data
+        })
+        // res.status(200).json({
+        //     message: "User Fetched",
+        //     data: data
+        // })
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+export const UserController = { createUser, getUser, getSingleUser }
