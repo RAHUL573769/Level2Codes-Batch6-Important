@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express"
-import { postController } from "./post.controller"
 import { betterAuth1 } from "../../lib/auth"
 import { auth, UserRole } from "../../middlware/auth"
+import { postController } from "./post.controller"
 
 const router = express.Router()
 

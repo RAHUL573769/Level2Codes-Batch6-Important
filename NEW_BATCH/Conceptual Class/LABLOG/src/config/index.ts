@@ -9,5 +9,5 @@ export default {
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     FRONTEND_URL: process.env.FRONTEND_URL,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
 }
