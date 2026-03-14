@@ -1,5 +1,6 @@
-import { model, Schema } from "mongoose";
+import { model, Query, Schema } from "mongoose";
 import { IUser } from "../interface/user.interface";
+import { NextFunction } from "express";
 
 const userSchema = new Schema<IUser>({
     name: {
@@ -30,6 +31,12 @@ const userSchema = new Schema<IUser>({
 
 
 })
+//pRE Hook for Query Middleware
+// import { Query } from "mongoose";
 
+userSchema.pre(/^find/, function (this: Query<IUser, IUser>, next) {
+    this.where({ userStatus: "active" });
+    next;
+})
 const User = model<IUser>('User', userSchema)
 export default User

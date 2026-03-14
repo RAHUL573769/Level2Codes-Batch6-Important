@@ -40,7 +40,7 @@ const router = express.Router()
 //     next()
 // }
 
-router.get("/", AdminController.getAdminData)
+router.get("/", AdminController.getAllFromDB)
 router.get("/:id", AdminController.getSpecificAdmin)
 router.patch("/:id", AdminController.updateSpecificAdmin)
 router.delete("/:id", AdminController.deleteFromDb)

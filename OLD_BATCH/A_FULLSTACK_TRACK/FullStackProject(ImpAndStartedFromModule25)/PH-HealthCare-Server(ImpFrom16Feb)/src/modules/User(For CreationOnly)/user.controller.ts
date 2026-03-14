@@ -58,32 +58,32 @@ const createDoctorController = async (req: Request, res: Response, next: NextFun
 }
 
 
-const getAdminData = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    // try {
+// const getAdminData = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+//     // try {
 
-    const data1 = req.query
-    pickFunction(data1, userFilterableFields)
-    // const tags = req.query.tags ? (req.query.tags as string).split(",") : []
-    console.log(data1)
-    //Type Checking
-    // const searchString = typeof data1 === "string" ? data1 : undefined;
-    //Type Checking
-    const data = await userService.getAdminDataFromDb(data1)
-    // res.status(200).json({
-    //     message: "Admin Fetches",
-    //     status: true,
-    //     data: data
-    // })
-    successResponse(res, {
-        statusCode: 200,
-        message: "User Fetches",
-        status: true,
-        data: data
-    })
+//     const data1 = req.query
+//     pickFunction(data1, userFilterableFields)
+//     // const tags = req.query.tags ? (req.query.tags as string).split(",") : []
+//     console.log(data1)
+//     //Type Checking
+//     // const searchString = typeof data1 === "string" ? data1 : undefined;
+//     //Type Checking
+//     const data = await userService.getAdminDataFromDb(data1)
+//     // res.status(200).json({
+//     //     message: "Admin Fetches",
+//     //     status: true,
+//     //     data: data
+//     // })
+//     successResponse(res, {
+//         statusCode: 200,
+//         message: "User Fetches",
+//         status: true,
+//         data: data
+//     })
 
-    // } catch (error) {
-    //     next(error)
-    // }
-})
+//     // } catch (error) {
+//     //     next(error)
+//     // }
+// })
 
-export const userController = { getAdminData, createAdminController, createDoctorController }
+export const userController = { createAdminController, createDoctorController }

@@ -201,57 +201,57 @@ const createDoctorService = async (
 // }
 
 
-const getAdminDataFromDb = async (
-    payload: any
-    // payload: any
-) => {
-    console.log('Payload', payload)
-    const { search, ...filteredData } = payload
-    const andConditions = []
-    console.log('FD', filteredData)
+// const getAdminDataFromDb = async (
+//     payload: any
+//     // payload: any
+// ) => {
+//     console.log('Payload', payload)
+//     const { search, ...filteredData } = payload
+//     const andConditions = []
+//     console.log('FD', filteredData)
 
 
-    // 🔍 Search by name OR email
-    if (search) {
-        andConditions.push({
-            OR: userSearchAbleFields.map((field) => ({
-                [field]: {
-                    contains: search,
-                    mode: "insensitive",
-                },
-            })),
-        })
-    }
-    if (Object.keys(filteredData).length > 0) {
-        andConditions.push({
+//     // 🔍 Search by name OR email
+//     if (search) {
+//         andConditions.push({
+//             OR: userSearchAbleFields.map((field) => ({
+//                 [field]: {
+//                     contains: search,
+//                     mode: "insensitive",
+//                 },
+//             })),
+//         })
+//     }
+//     if (Object.keys(filteredData).length > 0) {
+//         andConditions.push({
 
-            AND: Object.keys(filteredData).map(key => ({
-                [key]: {
-                    equals: filteredData[key]
-                }
-            }))
-        })
-    }
+//             AND: Object.keys(filteredData).map(key => ({
+//                 [key]: {
+//                     equals: filteredData[key]
+//                 }
+//             }))
+//         })
+//     }
 
-    // 🏷️ Filter by tags
-    // if (tags && tags.length > 0) {
-    //     andConditions.push({
-    //         tags: {
-    //             hasSome: tags,
-    //         },
-    //     })
-    // }
+//     // 🏷️ Filter by tags
+//     // if (tags && tags.length > 0) {
+//     //     andConditions.push({
+//     //         tags: {
+//     //             hasSome: tags,
+//     //         },
+//     //     })
+//     // }
 
-    // 🧠 Build final where condition
-    const whereConditions =
-        andConditions.length > 0
-            ? { AND: andConditions }
-            : {}
+//     // 🧠 Build final where condition
+//     const whereConditions =
+//         andConditions.length > 0
+//             ? { AND: andConditions }
+//             : {}
 
-    const data = await prisma.admin.findMany({
-        where: whereConditions,
-    })
+//     const data = await prisma.admin.findMany({
+//         where: whereConditions,
+//     })
 
-    return data
-}
-export const userService = { getAdminDataFromDb, createAdminService, createDoctorService }
+//     return data
+// }
+export const userService = { createAdminService, createDoctorService }

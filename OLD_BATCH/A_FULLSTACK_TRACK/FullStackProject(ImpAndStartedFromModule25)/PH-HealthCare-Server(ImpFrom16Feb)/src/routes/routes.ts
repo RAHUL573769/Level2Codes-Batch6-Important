@@ -2,7 +2,7 @@ import express from 'express';
 // import { userRouter } from '../modules/User/user.route';
 import { AdminRouter } from '../modules/Admin/admin.route';
 import { AuthRouter } from '../modules/AuthForLogin/auth.route';
-import { userRouter } from '../modules/User/user.route';
+import { userRouter } from '../modules/User(For CreationOnly)/user.route';
 
 
 const router = express.Router()
@@ -14,7 +14,7 @@ const allRouterArray = [
 
     },
     {
-        path: "/admin",
+        path: "/admins",
         route: AdminRouter
     },
 

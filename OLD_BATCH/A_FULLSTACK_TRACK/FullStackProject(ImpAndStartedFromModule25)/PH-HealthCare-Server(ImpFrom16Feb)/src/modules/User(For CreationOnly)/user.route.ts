@@ -47,7 +47,7 @@ import { fileUploader } from '../../helpers/fileUploadersCopy';
 // const upload = multer({ storage: storage })
 const router = express.Router()
 
-router.get("/", userController.getAdminData)
+// router.get("/", userController.getAdminData)
 router.post("/",
     // auth(UserRole.ADMIN, UserRole.DOCTOR),
 

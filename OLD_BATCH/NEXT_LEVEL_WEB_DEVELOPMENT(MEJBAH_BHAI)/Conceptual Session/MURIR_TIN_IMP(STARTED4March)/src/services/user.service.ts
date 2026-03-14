@@ -16,5 +16,7 @@ const getSingleUserServices = async (id: string): Promise<IUser | null> => {
     const result = await User.findById(id)
     return result
 }
+const updateUserServices = () => { }
+const deleteUserServices = () => { }
 
-export const UserService = { getUsersServices, createUserServices, getSingleUserServices }
+export const UserService = { deleteUserServices, updateUserServices, getUsersServices, createUserServices, getSingleUserServices }
