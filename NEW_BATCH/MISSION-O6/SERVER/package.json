@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "tsx": "^4.21.0"
+  }
 }
