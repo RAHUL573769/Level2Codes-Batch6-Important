@@ -1,6 +1,8 @@
 import { Post } from "../../generated/prisma/client"
 import { PostWhereInput } from "../../generated/prisma/models"
+
 import { prisma } from "../../lib/prisma"
+
 
 
 const createPostIntoDb = async (data: Omit<Post, "id" | "createdAt" | "updatedAt">, userId: string) => {
@@ -20,22 +22,82 @@ const getPostFromDb = async () => {
 }
 
 const getPostFromDbNew1 = async (payload: { search?: string, tags: string[]; }) => {
-    const result = await prisma.post.findMany({
-        where: {
 
-            OR: [{
-                title: {
-                    contains: payload.search,
-                    mode: "insensitive",
+    const andConditions: PostWhereInput[] = []
+    const { search, tags } = payload
+    if (search) {
+        andConditions.push({
+            OR: [
+                {
+                    title: {
+                        contains: payload.search,
+                        mode: "insensitive",
+                    },
                 },
-            }, {
-                content: {
-                    contains: payload.search,
-                    mode: "insensitive",
-                }
-            }],
+                {
+                    content: {
+                        contains: payload.search,
+                        mode: "insensitive",
+                    },
+                }, {
+                    tags: { has: payload.search as string }
+                }],
+        },)
+    }
+    if (tags.length > 0) {
+        andConditions.push({
+            tags: {
+                hasEvery: tags as string[]
+            }
+        })
+    }
+    const result = await prisma.post.findMany({
+        where: andConditions.length > 0 ? { AND: andConditions } : {}
+    //     where: {
 
-        }
+    //         AND: andConditions
+    // // AND: [
+    // //     {
+    // //         OR: [
+    // //             {
+    // //                 title: {
+    // //                     contains: payload.search,
+    // //                     mode: "insensitive",
+    // //                 },
+    // //             },
+    // //             {
+    // //                 content: {
+    // //                     contains: payload.search,
+    // //                     mode: "insensitive",
+    // //                 },
+    // //             }, {
+    // //                 tags: { has: payload.search as string }
+    // //             }],
+    // //     },
+    // //     {
+
+    // //     }
+    // // ],
+
+    // // OR: [
+    // //     {
+    // //     title: {
+    // //         contains: payload.search,
+    // //         mode: "insensitive",
+    // //     },
+    // //     },
+    // //     {
+    // //     content: {
+    // //         contains: payload.search,
+    // //         mode: "insensitive",
+    // //         },
+    // //     }, {
+    // //         tags: { has: payload.search as string }
+    // // }],
+
+
+
+        //     }
     })
     console.log("result", result)
     return result
@@ -87,9 +149,9 @@ const getPostFromDbNew1 = async (payload: { search?: string, tags: string[]; }) 
 //                     }
 //                 }
 //             ],
-//             tags: [
-//                 hasEvery: payload.tags as string[]
-//             ]
+// tags: [
+//     hasEvery: payload.tags as string[]
+// ]
 //         }
 //     })
 //     console.log("result", result)

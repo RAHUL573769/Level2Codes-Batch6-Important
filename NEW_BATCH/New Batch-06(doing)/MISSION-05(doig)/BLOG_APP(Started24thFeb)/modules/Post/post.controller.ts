@@ -98,7 +98,7 @@ const getSpecificPost: RequestHandler = async (req, res) => {
 const getSpecificPost1: RequestHandler = async (req, res) => {
     try {
 
-        const search = req.query
+        const { search } = req.query
         // console.log('102', search)
         const searchString = typeof search === "string" ? search : undefined
         const searchTags = req.query.tags ? (req.query.tags as string).split(",") : []
