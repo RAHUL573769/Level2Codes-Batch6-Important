@@ -94,4 +94,20 @@ const getSpecificPost: RequestHandler = async (req, res) => {
         res.status(500).json({ message: "Something went wrong" })
     }
 }
-export const postController = { getSpecificPost, createPost, getPost }
+
+const getSpecificPost1: RequestHandler = async (req, res) => {
+    try {
+
+        const search = req.query
+        // console.log('102', search)
+        const searchString = typeof search === "string" ? search : undefined
+        const searchTags = req.query.tags ? (req.query.tags as string).split(",") : []
+        // const result = await postService.getPostFromDbNew1(searchString)
+        const result = await postService.getPostFromDbNew1({ search: searchString, tags: searchTags })
+
+        res.status(200).json({ result })
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const postController = { getSpecificPost1, getSpecificPost, createPost, getPost }

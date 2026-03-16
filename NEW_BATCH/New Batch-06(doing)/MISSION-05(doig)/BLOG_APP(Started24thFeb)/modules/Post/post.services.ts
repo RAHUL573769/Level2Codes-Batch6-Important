@@ -18,6 +18,29 @@ const getPostFromDb = async () => {
     return result
 
 }
+
+const getPostFromDbNew1 = async (payload: { search?: string, tags: string[]; }) => {
+    const result = await prisma.post.findMany({
+        where: {
+
+            OR: [{
+                title: {
+                    contains: payload.search,
+                    mode: "insensitive",
+                },
+            }, {
+                content: {
+                    contains: payload.search,
+                    mode: "insensitive",
+                }
+            }],
+
+        }
+    })
+    console.log("result", result)
+    return result
+
+}
 // const getSpecificPostFromDb = async (payload: { search: string | undefined, tags: string[] }) => {
 //     const result = await prisma.post.findMany({
 //         where: {
@@ -196,4 +219,4 @@ const getSpecificPostFromDb = async (
 
 
 
-export const postService = { getSpecificPostFromDb, createPostIntoDb, getPostFromDb }
+export const postService = { getPostFromDbNew1, getSpecificPostFromDb, createPostIntoDb, getPostFromDb }
