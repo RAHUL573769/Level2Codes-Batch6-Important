@@ -15,6 +15,10 @@ const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
+    trustedOrigins: ["http://localhost:5000/"],
+    advanced: {
+        disableCSRFCheck: true
+    },
     //add additional fiels after generation
     user: {
         additionalFields: {

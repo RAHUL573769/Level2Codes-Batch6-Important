@@ -1,1 +1,7 @@
 $ npx auth@latest generate --output ./prisma/schema/auth.prisma --config "./src/lib/auth.ts"
+
+
+   trustedOrigins: ["http://localhost:5000/"],
+    advanced: {
+        disableCSRFCheck: true
+    },
