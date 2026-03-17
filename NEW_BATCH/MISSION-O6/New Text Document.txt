@@ -1,0 +1,1 @@
+$ npx auth@latest generate --output ./prisma/schema/auth.prisma --config "./src/lib/auth.ts"

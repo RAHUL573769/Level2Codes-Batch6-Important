@@ -1,0 +1,12 @@
+-- CreateEnum
+CREATE TYPE "ROLE" AS ENUM ('SUPER_ADMIN', 'ADMIN', 'DOCTOR', 'PATIENT');
+
+-- CreateEnum
+CREATE TYPE "UserStaus" AS ENUM ('BLOCKED', 'ACTIVE');
+
+-- AlterTable
+ALTER TABLE "user" ADD COLUMN     "deletedAt" TIMESTAMP(3),
+ADD COLUMN     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "needsPasswordChange" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "role" "ROLE" NOT NULL DEFAULT 'PATIENT',
+ADD COLUMN     "status" "UserStaus" NOT NULL DEFAULT 'ACTIVE';

@@ -3,10 +3,13 @@ import { prisma } from "./lib/prisma";
 import status from "http-status";
 import { SpecialityRoute } from "./modules/Speciality/speciality.route";
 import router from "./shared/routes";
+import { toNodeHandler } from "better-auth/node";
+import auth from "./lib/auth";
 
 const app: Application = express();
 
 // Enable URL-encoded form data parsing
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware to parse JSON bodies
