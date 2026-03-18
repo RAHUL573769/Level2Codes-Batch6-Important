@@ -6,11 +6,12 @@ export const catchAsync1 = (fn: RequestHandler) => {
             await fn(req, res, next)
 
         } catch (error) {
-            res.status(200).json({
-                message: "",
-                status: "Failed",
-                data: error
-            })
+            next(error)
+            // res.status(200).json({
+            //     message: "",
+            //     status: "Failed",
+            //     data: error
+            // })
         }
     }
 }

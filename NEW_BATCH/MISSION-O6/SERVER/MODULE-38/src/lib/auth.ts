@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { ROLE, UserStaus } from "../../generated/enums";
+import config from "../config";
 // If your Prisma file is located elsewhere, you can change the path
 
 
@@ -15,7 +16,9 @@ const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
-    trustedOrigins: ["http://localhost:5000/"],
+    trustedOrigins: [
+
+        config.BETTER_AUTH_URL || "http://localhost:5000/"],
     advanced: {
         disableCSRFCheck: true
     },

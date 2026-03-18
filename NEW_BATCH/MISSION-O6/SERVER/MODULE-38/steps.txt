@@ -7,4 +7,7 @@ Day - 01;
 5.Setting up better auth
 6.CREATING SPECIALTIES
 7.Login patient (using better auth)
-8.Better auth User Additional Fields
+
+Day-02
+1.Module 38-01 Left
+2.Global error handler and notfound route done

@@ -9,3 +9,8 @@ enum UserStaus {
     BLOCKED
     ACTIVE
 }
+
+enum Gender {
+    MALE
+    FEMALE
+}
