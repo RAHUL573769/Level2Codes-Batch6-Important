@@ -3,3 +3,5 @@
     "studio": "prisma studio",
     "push": "prisma db push",
     "pull": "prisma db pull",
+
+cc
