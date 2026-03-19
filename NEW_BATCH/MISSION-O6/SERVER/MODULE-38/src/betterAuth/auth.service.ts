@@ -2,6 +2,8 @@ import { date } from "better-auth";
 import { ROLE, User, UserStaus } from "../../generated/client";
 import auth from "../lib/auth";
 import { prisma } from "../lib/prisma";
+import { jwtHelpers } from "../jwtTokenCreation/jwt";
+import { getAccessToken } from "../jwtTokenCreation/accessToke";
 
 interface IRegisterPayload {
     name: string
@@ -70,7 +72,20 @@ const loginUser = async (payload: ILoginUserPayload) => {
     if (data.user.status === UserStaus.BLOCKED) {
         throw new Error("User is Blocked")
     }
-    return data
+    const accessToken = getAccessToken({
+        userId: data.user.id,
+        role: data.user.role,
+        name: data.user.name,
+        email: data.user.email,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted,
+        emailVerified: data.user.emailVerified
+    })
+    // return data
+    return {
+        ...data,
+        accessToken
+    }
 }
 
 export const AuthService = { loginUser, registerPatient }
