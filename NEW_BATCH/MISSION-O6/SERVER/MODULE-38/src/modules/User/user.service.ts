@@ -208,7 +208,7 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
         throw error;
     }
 }
-
+export const userService = { createDoctor }
 
 
 
