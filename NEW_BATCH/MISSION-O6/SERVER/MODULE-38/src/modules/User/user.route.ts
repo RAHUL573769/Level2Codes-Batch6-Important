@@ -59,7 +59,7 @@ const router = express.Router()
 // }
 
 
-router.post("/create-doctor", validateRequest(createDoctorZodValidation), userServiceController1.createDoctorController)
+router.post("/create-doctor", userServiceController1.createDoctorController)
 
 // router.post("/create-doctor", userServiceController1.createDoctorController)
 

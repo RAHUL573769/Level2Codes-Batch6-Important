@@ -3,7 +3,7 @@ import { ROLE, User, UserStaus } from "../../generated/client";
 import auth from "../lib/auth";
 import { prisma } from "../lib/prisma";
 import { jwtHelpers } from "../jwtTokenCreation/jwt";
-import { getAccessToken } from "../jwtTokenCreation/accessToke";
+import { getAccessToken, getRefreshToken } from "../jwtTokenCreation/accessToke";
 
 interface IRegisterPayload {
     name: string
@@ -34,20 +34,52 @@ const registerPatient = async (payload: IRegisterPayload) => {
 
         //Todo
         const patient = await prisma.$transaction(async (tx) => {
-            await tx.patient.create({
+
+            const patientTx = await tx.patient.create({
                 data: {
                     userId: data.user.id,
                     name: payload.name,
-                    email: payload.email
-
+                    email: payload.email,
                 }
             })
+
+            return patientTx
         })
+        // const patient = await prisma.$transaction(async (tx) => {
+        //     await tx.patient.create({
+        //         data: {
+        //             userId: data.user.id,
+        //             name: payload.name,
+        //             email: payload.email
+
+        //         }
+        //     })
+        // })
 
         //Todo
-
+        const accessToken = getAccessToken({
+            userId: data.user.id,
+            role: data.user.role,
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status,
+            isDeleted: data.user.isDeleted,
+            emailVerified: data.user.emailVerified,
+        });
+        const refreshToken = getRefreshToken({
+            userId: data.user.id,
+            role: data.user.role,
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status,
+            isDeleted: data.user.isDeleted,
+            emailVerified: data.user.emailVerified,
+        });
         return {
-            data
+            ...data,
+            accessToken,
+            refreshToken,
+            patient
         }
     } catch (error) {
         await prisma.user.delete({
@@ -81,10 +113,20 @@ const loginUser = async (payload: ILoginUserPayload) => {
         isDeleted: data.user.isDeleted,
         emailVerified: data.user.emailVerified
     })
+    const refreshToken = getRefreshToken({
+        userId: data.user.id,
+        role: data.user.role,
+        name: data.user.name,
+        email: data.user.email,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted,
+        emailVerified: data.user.emailVerified,
+    });
+
     // return data
     return {
         ...data,
-        accessToken
+        accessToken, refreshToken
     }
 }
 

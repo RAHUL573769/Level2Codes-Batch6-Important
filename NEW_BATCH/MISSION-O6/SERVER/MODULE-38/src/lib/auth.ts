@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { ROLE, UserStaus } from "../../generated/enums";
 import config from "../config";
+import ms, { StringValue } from "ms";
 // If your Prisma file is located elsewhere, you can change the path
 
 
@@ -22,6 +23,7 @@ const auth = betterAuth({
     advanced: {
         disableCSRFCheck: true
     },
+
     //add additional fiels after generation
     user: {
         additionalFields: {
@@ -43,8 +45,23 @@ const auth = betterAuth({
                 defaultValue: false
             }
         }
-    }
+    },
     //add additional fiels after generation
+    session: {
+        expiresIn: Number(ms(config.BETTER_AUTH_SESSION_TOKEN_EXPIRES_IN as StringValue)),
+        updateAge: Number(ms(config.BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE as StringValue)),
+        cookieCache: {
+            enabled: true,
+            maxAge: Number(ms(config.BETTER_AUTH_SESSION_TOKEN_EXPIRES_IN as StringValue)),
+
+    // httpOnly: true,
+    // secure: true,
+    // sameSite: "none",
+
+
+
+        }
+    }
 });
 
 export default auth
