@@ -28,7 +28,8 @@ export const setAccessToken = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(maxAge1)
+        maxAge: 60 * 60 * 60 * 24
+        // maxAge: Number(maxAge1)
     })
 }
 
@@ -39,7 +40,7 @@ export const setRefreshToken = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(maxAge)
+        maxAge: 60 * 24 * 7
     })
 
 }
@@ -52,7 +53,7 @@ export const setBetterAuthSession = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(maxAge)
+        maxAge: 60 * 60 * 60 * 24
     })
 
 }
