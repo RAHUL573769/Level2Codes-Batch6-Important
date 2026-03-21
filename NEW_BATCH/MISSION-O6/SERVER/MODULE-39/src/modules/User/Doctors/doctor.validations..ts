@@ -1,5 +1,5 @@
 import z from "zod";
-import { Gender } from "../../../../generated/enums";
+import { Gender } from "../../../generated/prisma/enums";
 
 // export const createDoctorZodValidation = z.object({
 //     password: z.string(),

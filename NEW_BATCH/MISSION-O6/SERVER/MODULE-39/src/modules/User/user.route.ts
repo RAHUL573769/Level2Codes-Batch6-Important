@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { userServiceController1 } from './user.controller';
 import z from 'zod';
-import { Gender } from '../../../generated/enums';
 import { validateRequest } from '../../helpers/validateRequestZod';
 import { createDoctorZodValidation } from './Doctors/doctor.validations.';
 
