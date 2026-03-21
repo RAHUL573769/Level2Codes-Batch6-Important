@@ -5,3 +5,8 @@ $ npx auth@latest generate --output ./prisma/schema/auth.prisma --config "./src/
     advanced: {
         disableCSRFCheck: true
     },
+
+
+
+  "include": ["src", "prisma.config.ts"],
+  "exclude": ["node_modules", "dist"]
