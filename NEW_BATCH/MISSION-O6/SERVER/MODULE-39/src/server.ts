@@ -1,5 +1,6 @@
-import app from "./app";
-import config from "./config";
+import app from "./app.js";
+import config from "./config/index.js";
+
 const port = config.PORT
 
 // Start the server

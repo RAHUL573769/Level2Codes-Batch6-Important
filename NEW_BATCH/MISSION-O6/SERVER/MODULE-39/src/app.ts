@@ -1,12 +1,14 @@
-import express, { Application, NextFunction, Request, Response } from "express";
-import { prisma } from "./lib/prisma";
-import status from "http-status";
-import { SpecialityRoute } from "./modules/Speciality/speciality.route";
-import router from "./shared/routes";
 import { toNodeHandler } from "better-auth/node";
-import auth from "./lib/auth";
-import { globalErrorHandler } from "./helpers/globalErrorHandler";
-import { notFound } from "./helpers/notFound";
+import { Application, Request, Response } from "express";
+import express from 'express';
+
+import router from "./shared/routes/index.js";
+import { globalErrorHandler } from "./helpers/globalErrorHandler.js";
+import { prisma } from "./lib/prisma.js";
+import status from "http-status";
+import { notFound } from "./helpers/notFound.js";
+import { auth } from "./lib/auth.js";
+
 
 const app: Application = express();
 

@@ -1,9 +1,9 @@
-import { date } from "better-auth";
-import auth from "../lib/auth";
-import { prisma } from "../lib/prisma";
-import { jwtHelpers } from "../jwtTokenCreation/jwt";
-import { getAccessToken, getRefreshToken } from "../jwtTokenCreation/accessToke";
-import { UserStatus } from "../generated/prisma/enums";
+import { UserStatus } from "../generated/prisma/enums.js";
+import { getAccessToken, getRefreshToken } from "../jwtTokenCreation/accessToke.js";
+import { auth } from "../lib/auth.js";
+// import auth from "../lib/auth.js";
+import { prisma } from "../lib/prisma.js";
+
 
 interface IRegisterPayload {
     name: string
@@ -33,7 +33,7 @@ const registerPatient = async (payload: IRegisterPayload) => {
     try {
 
         //Todo
-        const patient = await prisma.$transaction(async (tx) => {
+        const patient = await prisma.$transaction(async (tx: any) => {
 
             const patientTx = await tx.patient.create({
                 data: {

@@ -1,8 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { userServiceController1 } from './user.controller';
-import z from 'zod';
-import { validateRequest } from '../../helpers/validateRequestZod';
-import { createDoctorZodValidation } from './Doctors/doctor.validations.';
+import express from 'express';
+import { userServiceController1 } from './user.controller.js';
 
 // const createDoctorZodValidation = z.object({
 //     password: z.string(),

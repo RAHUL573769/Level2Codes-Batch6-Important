@@ -1,9 +1,4 @@
-import { RequestHandler, Response, Request, NextFunction } from "express"
-import status from "http-status"
-import { SpecilityServices } from "./speciality.service"
-import { catchAsync1 } from "../../helpers/catchAsunc"
-import { send } from "node:process"
-import { sendResponse } from "../../helpers/succesRespose"
+
 
 
 // export interface TResponse<T> {
@@ -12,6 +7,12 @@ import { sendResponse } from "../../helpers/succesRespose"
 //     statusCode: number;
 //     data?: T;
 // }
+
+import { RequestHandler } from "express"
+import { catchAsync1 } from "../../helpers/catchAsunc.js"
+import { SpecilityServices } from "./speciality.service.js"
+import { sendResponse } from "../../helpers/succesRespose.js"
+import status from "http-status"
 
 // const sendResponse = <T>(res: Response, responseData: TResponse<T>) => {
 //     const { success, message, statusCode, data } = responseData;

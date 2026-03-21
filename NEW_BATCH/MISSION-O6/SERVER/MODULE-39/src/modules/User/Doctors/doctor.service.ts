@@ -1,8 +1,7 @@
+import { UserStatus } from "../../../generated/prisma/enums.js";
+import { prisma } from "../../../lib/prisma.js";
+import { IUpdateDoctorPayload } from "./doctor.interface.js";
 
-import { UserStatus } from "../../../generated/prisma/enums";
-import { prisma } from "../../../lib/prisma";
-import { IUpdateDoctorPayload } from "./doctor.interface";
-import status from "http-status";
 const getAllDoctors = async () => {
     const doctors = await prisma.doctor.findMany({
         where: {
@@ -63,7 +62,7 @@ const updateDoctor = async (id: string, payload: IUpdateDoctorPayload) => {
     }
     const { doctor: doctorData, specialties } = payload;
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
         if (doctorData) {
             await tx.doctor.update({
                 where: {
@@ -122,7 +121,7 @@ const deleteDoctor = async (id: string) => {
         throw new Error("404: Doctor not found");
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
         await tx.doctor.update({
             where: { id },
             data: {

@@ -1,8 +1,9 @@
 import express from 'express';
-import { SpecialityRoute } from '../../modules/Speciality/speciality.route';
-import { AuthRoute } from '../../betterAuth/auth.route';
-import { DoctorRoutes } from '../../modules/User/Doctors/doctor.route';
-import { UserRoute } from '../../modules/User/user.route';
+import { SpecialityRoute } from '../../modules/Speciality/speciality.route.js';
+import { UserRoute } from '../../modules/User/user.route.js';
+import { DoctorRoutes } from '../../modules/User/Doctors/doctor.route.js';
+import { AuthRoute } from '../../betterAuth/auth.route.js';
+
 const router = express.Router()
 
 const allRouter = [

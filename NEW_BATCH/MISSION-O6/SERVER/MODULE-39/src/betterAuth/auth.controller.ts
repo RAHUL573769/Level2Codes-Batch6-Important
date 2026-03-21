@@ -1,11 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import { catchAsync1 } from "../helpers/catchAsunc";
-
-import { AuthService } from "./auth.service";
-import { sendResponse } from "../helpers/succesRespose";
-import { jwtHelpers } from "../jwtTokenCreation/jwt";
-import { setAccessToken, setBetterAuthSession, setRefreshToken } from '../jwtTokenCreation/accessToke';
-
+import { NextFunction, Request, Response } from "express"
+import { catchAsync1 } from "../helpers/catchAsunc.js"
+import { AuthService } from "./auth.service.js"
+import { sendResponse } from "../helpers/succesRespose.js"
+import { setAccessToken, setBetterAuthSession, setRefreshToken } from "../jwtTokenCreation/accessToke.js"
 
 const registerPatient = catchAsync1(
     async (req: Request, res: Response, next: NextFunction) => {

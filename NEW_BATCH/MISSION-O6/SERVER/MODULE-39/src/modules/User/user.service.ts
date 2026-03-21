@@ -1,11 +1,13 @@
 // model Doctor {
 //     id String @id @default (uuid(7))
 
+import { Specialty } from "../../generated/prisma/browser.js";
+import { Gender, Role } from "../../generated/prisma/enums.js";
+import { auth } from "../../lib/auth.js";
 
-import { Specialty } from "../../generated/prisma/client";
-import { Gender, Role } from "../../generated/prisma/enums";
-import auth from "../../lib/auth"
-import { prisma } from "../../lib/prisma"
+import { prisma } from "../../lib/prisma.js";
+
+
 
 //     name          String
 //     email         String @unique
@@ -113,28 +115,98 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
         throw new Error("User with this email already exists");
         // throw new AppError(status.CONFLICT, "User with this email already exists");
     }
-
     const userData = await auth.api.signUpEmail({
         body: {
             email: payload.doctor.email,
             password: payload.password,
             role: Role.DOCTOR,
             name: payload.doctor.name,
-            needsPasswordChange: true,
+            needPasswordChange: true,
         }
     })
 
+    // const userData = await auth.api.signUpEmail({
+
+
+    //     body: {
+    //         email: payload.doctor.email,
+    //         password: payload.password,
+    //         role: Role.DOCTOR,
+    //         name: payload.doctor.name,
+    //         needsPasswordChange: true
+    //     }
+    // })
+
 
     try {
-        const result = await prisma.$transaction(async (tx) => {
+        interface DoctorCreateInput {
+            userId: string;
+            name: string;
+            email: string;
+            profilePhoto?: string;
+            contactNumber?: string;
+            address?: string;
+            registrationNumber: string;
+            experience?: number;
+            gender: Gender;
+            appointmentFee: number;
+            qualification: string;
+            currentWorkingPlace: string;
+            designation: string;
+        }
+
+        interface DoctorSpecialtyInput {
+            doctorId: string;
+            specialtyId: string;
+        }
+
+        interface DoctorResponse {
+            id: string;
+            userId: string;
+            name: string;
+            email: string;
+            profilePhoto?: string;
+            contactNumber?: string;
+            address?: string;
+            registrationNumber: string;
+            experience?: number;
+            gender: Gender;
+            appointmentFee: number;
+            qualification: string;
+            currentWorkingPlace: string;
+            designation: string;
+            createdAt: Date;
+            updatedAt: Date;
+            user: {
+                id: string;
+                email: string;
+                name: string;
+                role: Role;
+                status: string;
+                emailVerified: boolean;
+                image?: string;
+                isDeleted: boolean;
+                deletedAt?: Date;
+                createdAt: Date;
+                updatedAt: Date;
+            };
+            specialties: Array<{
+                specialty: {
+                    title: string;
+                    id: string;
+                };
+            }>;
+        }
+
+        const result: DoctorResponse = await prisma.$transaction<DoctorResponse>(async (tx: any) => {
             const doctorData = await tx.doctor.create({
                 data: {
                     userId: userData.user.id,
                     ...payload.doctor,
-                }
+                } as DoctorCreateInput
             })
 
-            const doctorSpecialtyData = specialties.map((specialty) => {
+            const doctorSpecialtyData: DoctorSpecialtyInput[] = specialties.map((specialty) => {
                 return {
                     doctorId: doctorData.id,
                     specialtyId: specialty.id,
@@ -145,7 +217,7 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
                 data: doctorSpecialtyData
             })
 
-            const doctor = await tx.doctor.findUnique({
+            const doctor: DoctorResponse = await tx.doctor.findUnique({
                 where: {
                     id: doctorData.id
                 },
@@ -192,7 +264,7 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
                         }
                     }
                 }
-            })
+            }) as DoctorResponse
 
             return doctor;
 

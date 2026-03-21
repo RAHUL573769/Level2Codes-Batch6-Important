@@ -1,8 +1,9 @@
-import { Request, RequestHandler, Response } from "express"
-import { catchAsync1 } from "../../../helpers/catchAsunc"
-import { sendResponse } from "../../../helpers/succesRespose"
-import { DoctorService } from "./doctor.service"
-import status from "http-status"
+import { Request, RequestHandler, Response } from "express";
+import { catchAsync1 } from "../../../helpers/catchAsunc.js";
+import { DoctorService } from "./doctor.service.js";
+import { sendResponse } from "../../../helpers/succesRespose.js";
+import status from "http-status";
+
 
 const getDoctorController: RequestHandler = catchAsync1(async (req, res) => {
 

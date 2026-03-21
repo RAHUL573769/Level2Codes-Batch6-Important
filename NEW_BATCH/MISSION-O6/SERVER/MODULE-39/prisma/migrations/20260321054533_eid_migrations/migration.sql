@@ -55,7 +55,7 @@ CREATE TABLE "user" (
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
     "role" "Role" NOT NULL DEFAULT 'PATIENT',
     "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE',
-    "needPasswordChange" BOOLEAN NOT NULL DEFAULT false,
+    "needsPasswordChange" BOOLEAN NOT NULL DEFAULT false,
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "deletedAt" TIMESTAMP(3),
     "image" TEXT,

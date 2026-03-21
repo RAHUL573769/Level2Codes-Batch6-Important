@@ -1,6 +1,5 @@
-
-import { Specialty } from "../../../generated/browser";
-import { prisma } from "../../lib/prisma";
+import { Specialty } from "../../generated/prisma/browser.js"
+import { prisma } from "../../lib/prisma.js"
 
 const createSpeciality = async (payload: Specialty): Promise<Specialty> => {
     const speciality = await prisma.specialty.create({ data: payload })

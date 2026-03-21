@@ -1,8 +1,6 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { SpecialityController } from './speciality.controller';
-import { cookieUtils } from '../../jwtTokenCreation/cookies';
-import { jwtHelpers } from '../../jwtTokenCreation/jwt';
-import config from '../../config';
+import express from 'express';
+import { SpecialityController } from './speciality.controller.js';
+
 
 
 const router = express.Router()
