@@ -1,11 +1,18 @@
 import express from 'express';
 import { SpecialityController } from './speciality.controller.js';
+import { multerUpload } from '../../config/multer.js';
+import { validateRequest } from '../../helpers/validateRequestZod.js';
+import { SpecialtyValidation } from './speciality.validations.js';
 
 
 
 const router = express.Router()
 
-router.post("/create-specialties", SpecialityController.createSpecility)
+router.post("/create-specialties",
+
+    multerUpload.single("file"),
+    validateRequest(SpecialtyValidation.createSpecialtyZodSchema),
+    SpecialityController.createSpecility)
 router.get("/get-specialties",
     // (req: Request, res: Response, next: NextFunction) => {
     //     try {

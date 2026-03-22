@@ -42,7 +42,9 @@ import status from "http-status"
 
 const createSpecility: RequestHandler = catchAsync1(async (req, res) => {
 
-    const payload = req.body
+    // const payload = req.body
+    const payload = { ...req.body, icon: req.file?.path }
+    console.log(payload)
     const result = await SpecilityServices.createSpeciality(payload)
     sendResponse(res, {
         statusCode: 200,

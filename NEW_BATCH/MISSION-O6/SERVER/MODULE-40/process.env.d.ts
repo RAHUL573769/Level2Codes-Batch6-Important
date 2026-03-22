@@ -10,7 +10,9 @@ declare namespace NodeJs {
         REFRESH_TOKEN_EXPIRES_IN: string
         BETTER_AUTH_SESSION_TOKEN_EXPIRES_IN: string
         BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE: string
-
+        CLOUDINARY_API_KEY: string
+        CLOUDINARY_API_SECRET: string
+        CLOUDINARY_API_NAME: string
 
     }
 }

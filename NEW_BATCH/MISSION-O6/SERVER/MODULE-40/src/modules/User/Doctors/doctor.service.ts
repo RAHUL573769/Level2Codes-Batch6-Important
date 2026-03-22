@@ -2,23 +2,33 @@ import { UserStatus } from "../../../generated/prisma/enums.js";
 import { prisma } from "../../../lib/prisma.js";
 import { IUpdateDoctorPayload } from "./doctor.interface.js";
 
+
 const getAllDoctors = async () => {
     const doctors = await prisma.doctor.findMany({
+        // where: { isDeleted: false, },
         where: {
-            isDeleted: false,
+            isDeleted: false, specialties: {
+                some: {
+                    specialty: {
+                        title: req.query.speci, alty
+                    }
+                }
+            }
         },
         include: {
             user: true,
             specialties: {
                 include: {
-                    specialty: true
-                }
-            }
-        }
-    })
-    return doctors;
-}
+                    specialty: true,
+                },
+            },
+        },
+    });
 
+    const query = new QueryBuilder()
+
+    return doctors;
+};
 const getDoctorById = async (id: string) => {
     const doctor = await prisma.doctor.findUnique({
         where: {
@@ -32,6 +42,11 @@ const getDoctorById = async (id: string) => {
                     specialty: true
                 }
             },
+            // specialties: {
+            //     include: {
+            //         specialty: true
+            //     }
+            // },
             appointments: {
                 include: {
                     patient: true,
