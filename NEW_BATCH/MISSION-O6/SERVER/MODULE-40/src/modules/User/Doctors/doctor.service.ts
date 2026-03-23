@@ -10,7 +10,7 @@ const getAllDoctors = async () => {
             isDeleted: false, specialties: {
                 some: {
                     specialty: {
-                        title: req.query.speci, alty
+                        title: req.query.specialty
                     }
                 }
             }

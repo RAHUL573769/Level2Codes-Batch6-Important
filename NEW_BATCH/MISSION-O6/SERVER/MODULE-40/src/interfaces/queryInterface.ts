@@ -30,7 +30,7 @@ export interface PrismaModelDelegate {
     findMany(args?: any): Promise<any[]>;
     count(args?: any): Promise<number>;
 }
-
+//for parial Mactch
 export interface IQueryParams {
     searchTerm?: string;
     page?: string;
