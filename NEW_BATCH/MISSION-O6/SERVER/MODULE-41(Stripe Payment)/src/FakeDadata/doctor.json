@@ -1,0 +1,20 @@
+{
+    "password": "StrongPass123!",
+    "doctor": {
+        "name": "Dr. Ayesdha Rahman",
+        "email": "ayesha.rahmdan@example.com",
+        "profilePhoto": "https://example.com/images/doctors/adyesha.jpg",
+        "contactNumber": "+8801712345678",
+        "address": "House 12, Road 5, Dhanmondi, Dhaka",
+        "registrationNumber": "BMDyC-DR-45872",
+        "experience": 8,
+        "gender": "MALE",
+        "appointmentFee": 800,
+        "qualification": "MBByS, FCPS (Medicine)",
+        "currentWorkingPlace": "Square Hospital Ltd.",
+        "designation": "Consultant Physician"
+    },
+    "specialties": [
+        "019d0198-a91d-723e-8a5f-d1ebdf28a65b"
+    ]
+}

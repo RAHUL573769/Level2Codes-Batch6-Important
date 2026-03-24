@@ -1,0 +1,50 @@
+import { NextFunction, Request, Response } from "express"
+import { catchAsync1 } from "../helpers/catchAsunc.js"
+import { AuthService } from "./auth.service.js"
+import { sendResponse } from "../helpers/succesRespose.js"
+import { setAccessToken, setBetterAuthSession, setRefreshToken } from "../jwtTokenCreation/accessToke.js"
+
+
+const registerPatient = catchAsync1(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const payload = req.body
+        console.log(payload)
+        const result = await AuthService.registerPatient(payload)
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            data: result,
+            message: "Patient Registerd"
+        })
+    }
+)
+
+
+const loginUser = catchAsync1(async (req: Request, res: Response) => {
+
+    const payload = req.body
+    const result = await AuthService.loginUser(payload)
+    const { accessToken, refreshToken, token, ...rest } = result
+    setAccessToken(res, accessToken)
+    setRefreshToken(res, refreshToken)
+    setBetterAuthSession(res, token)
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Usrr Logged In",
+        data: result
+    })
+})
+
+const getMe = catchAsync1(async (req: Request, res: Response) => {
+    const user1 = req.user
+    const result = await AuthService.getMe(user1)
+    sendResponse(res, {
+        success: true,
+        message: "Get Me ",
+        statusCode: 200,
+        data: result,
+    })
+})
+export const AuthController = { registerPatient, loginUser, getMe }

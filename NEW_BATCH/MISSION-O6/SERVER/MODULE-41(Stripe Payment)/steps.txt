@@ -1,0 +1,19 @@
+Day - 01;
+
+1.ERD CONSTRUCTION
+2.PRISMA SETUP(setting up prisma.config.js,schema folder,schema.prisma)
+3.Using EXPRESS TYPESCRIPT SERVER
+4.OPTIMIZING :Routes,CatchAsync,successresponse,ProcesseEnv.ts
+5.Setting up better auth
+6.CREATING SPECIALTIES
+7.Login patient (using better auth)
+
+Day-02
+1.Module 38-01 Left
+2.Global error handler and notfound route done
+
+Day 03:
+Authentication Process+Social Media Login
+
+Day 4:
+Image Upload Process

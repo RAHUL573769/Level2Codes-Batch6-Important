@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-001",
+        "title": "Cardiology",
+        "description": "Medical specialty dealing with disorders of the heart and blood vessels.",
+        "icon": "cardiology.png",
+        "createdAt": "2026-03-14T08:00:00.000Z",
+        "updatedAt": "2026-03-14T08:00:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-002",
+        "title": "Dermatology",
+        "description": "Specialty focused on skin, hair, and nail conditions.",
+        "icon": "dermatology.png",
+        "createdAt": "2026-03-14T08:01:00.000Z",
+        "updatedAt": "2026-03-14T08:01:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-003",
+        "title": "Neurology",
+        "description": "Branch of medicine dealing with disorders of the nervous system.",
+        "icon": "neurology.png",
+        "createdAt": "2026-03-14T08:02:00.000Z",
+        "updatedAt": "2026-03-14T08:02:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-004",
+        "title": "Orthopedics",
+        "description": "Specialty dealing with bones, joints, ligaments, and muscles.",
+        "icon": "orthopedics.png",
+        "createdAt": "2026-03-14T08:03:00.000Z",
+        "updatedAt": "2026-03-14T08:03:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-005",
+        "title": "Pediatrics",
+        "description": "Medical care of infants, children, and adolescents.",
+        "icon": "pediatrics.png",
+        "createdAt": "2026-03-14T08:04:00.000Z",
+        "updatedAt": "2026-03-14T08:04:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-006",
+        "title": "Gynecology",
+        "description": "Specialty focused on the female reproductive system.",
+        "icon": "gynecology.png",
+        "createdAt": "2026-03-14T08:05:00.000Z",
+        "updatedAt": "2026-03-14T08:05:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-007",
+        "title": "Psychiatry",
+        "description": "Branch of medicine dealing with mental health disorders.",
+        "icon": "psychiatry.png",
+        "createdAt": "2026-03-14T08:06:00.000Z",
+        "updatedAt": "2026-03-14T08:06:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    },
+    {
+        "id": "1b1c7e9a-1a1a-4c4a-bc1a-008",
+        "title": "Ophthalmology",
+        "description": "Medical and surgical specialty dealing with eye diseases.",
+        "icon": "ophthalmology.png",
+        "createdAt": "2026-03-14T08:07:00.000Z",
+        "updatedAt": "2026-03-14T08:07:00.000Z",
+        "isDeleted": false,
+        "deletedAt": null
+    }
+]
