@@ -4,6 +4,7 @@ import { UserRoute } from '../../modules/User/user.route.js';
 import { DoctorRoutes } from '../../modules/User/Doctors/doctor.route.js';
 import { AuthRoute } from '../../betterAuth/auth.route.js';
 import { scheduleRoutes } from '../../modules/schedules/schedule.route.js';
+import { DoctorScheduleRoutes } from '../../modules/User/Doctors/doctor-schedule/doctor-schedule.route.js';
 
 const router = express.Router()
 
@@ -26,7 +27,8 @@ const allRouter = [
     }, {
         path: "/schedule",
         routes: scheduleRoutes
-    }]
+    },
+    { path: "/doctor-schedules", routes: DoctorScheduleRoutes }]
 
 allRouter.forEach(singleRouter => router.use(singleRouter.path, singleRouter.routes))
 

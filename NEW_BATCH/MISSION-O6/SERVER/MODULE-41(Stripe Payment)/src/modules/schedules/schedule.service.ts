@@ -106,57 +106,57 @@ const getAllSchedules = async (query: IQueryParams) => {
 }
 
 const getScheduleById = async (id: string) => {
-    // const schedule = await prisma.schedule.findUnique({
-    //     where: {
-    //         id: id
-    //     }
-    // });
-    // return schedule;
+    const schedule = await prisma.schedule.findUnique({
+        where: {
+            id: id
+        }
+    });
+    return schedule;
 }
 
 // refactoring - doctor's appointment or booked slot conflict check
 const updateSchedule = async (id: string, payload: IUpdateSchedulePayload) => {
-    // const { startDate, endDate, startTime, endTime } = payload;
-    // const startDateTime = new Date(
-    //     addMinutes(
-    //         addHours(
-    //             `${format(new Date(startDate), 'yyyy-MM-dd')}`,
-    //             Number(startTime.split(':')[0])
-    //         ),
-    //         Number(startTime.split(':')[1])
-    //     )
-    // );
+    const { startDate, endDate, startTime, endTime } = payload;
+    const startDateTime = new Date(
+        addMinutes(
+            addHours(
+                `${format(new Date(startDate), 'yyyy-MM-dd')}`,
+                Number(startTime.split(':')[0])
+            ),
+            Number(startTime.split(':')[1])
+        )
+    );
 
-    // const endDateTime = new Date(
-    //     addMinutes(
-    //         addHours(
-    //             `${format(new Date(endDate), 'yyyy-MM-dd')}`,
-    //             Number(endTime.split(':')[0])
-    //         ),
-    //         Number(endTime.split(':')[1])
-    //     )
-    // );
+    const endDateTime = new Date(
+        addMinutes(
+            addHours(
+                `${format(new Date(endDate), 'yyyy-MM-dd')}`,
+                Number(endTime.split(':')[0])
+            ),
+            Number(endTime.split(':')[1])
+        )
+    );
 
-    // const updatedSchedule = await prisma.schedule.update({
-    //     where: {
-    //         id: id
-    //     },
-    //     data: {
-    //         startDateTime: startDateTime,
-    //         endDateTime: endDateTime
-    //     }
-    // });
+    const updatedSchedule = await prisma.schedule.update({
+        where: {
+            id: id
+        },
+        data: {
+            startDateTime: startDateTime,
+            endDateTime: endDateTime
+        }
+    });
 
-    // return updatedSchedule;
+    return updatedSchedule;
 }
 
 const deleteSchedule = async (id: string) => {
-    // await prisma.schedule.delete({
-    //     where: {
-    //         id: id
-    //     }
-    // });
-    // return true;
+    await prisma.schedule.delete({
+        where: {
+            id: id
+        }
+    });
+    return true;
 }
 
 export const ScheduleService = {
