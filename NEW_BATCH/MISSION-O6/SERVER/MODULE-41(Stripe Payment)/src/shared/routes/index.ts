@@ -28,7 +28,7 @@ const allRouter = [
         path: "/schedule",
         routes: scheduleRoutes
     },
-    { path: "/doctor-schedules", routes: DoctorScheduleRoutes }]
+    { path: "/doctor-schedules", routes: DoctorScheduleRoutes ,}]
 
 allRouter.forEach(singleRouter => router.use(singleRouter.path, singleRouter.routes))
 
