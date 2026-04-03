@@ -1,7 +1,7 @@
   "migrate": "prisma migrate dev",
     "generate": "prisma generate",
     "studio": "prisma studio",
-    "push": "prisma db push",
+    "push": "prism db push",
     "pull": "prisma db pull",
 
-cc
+ccjjj
