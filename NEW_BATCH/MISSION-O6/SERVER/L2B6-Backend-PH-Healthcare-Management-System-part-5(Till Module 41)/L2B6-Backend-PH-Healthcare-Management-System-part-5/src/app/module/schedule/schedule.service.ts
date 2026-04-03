@@ -1,30 +1,21 @@
-import { addMinutes, format, addHours } from "date-fns";
-import { IQueryParams } from "../../interfaces/queryInterface.js";
-import { IUpdateSchedulePayload } from "./schedule.interface.js";
-import { prisma } from "../../lib/prisma.js";
-import { convertDateTime } from "./scheduleHelpers.js";
-import { scheduleFilterableFields, scheduleIncludeConfig, scheduleSearchableFields } from "./schedule.constants.js";
-import { QueryBuilder } from "../../helpers/queryBuilder.js";
-import { Prisma, Schedule } from "../../generated/prisma/browser.js";
+import { addHours, addMinutes, format } from "date-fns";
+import { Prisma, Schedule } from "../../../generated/prisma/client";
+import { IQueryParams } from "../../interfaces/query.interface";
+import { prisma } from "../../lib/prisma";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { scheduleFilterableFields, scheduleIncludeConfig, scheduleSearchableFields } from "./schedule.constant";
+import { ICreateSchedulePayload, IUpdateSchedulePayload } from "./schedule.interface";
+import { convertDateTime } from "./schedule.utils";
 
-interface ICreateSchedulePayload {
-    startDate: string;
-    endDate: string;
-    startTime: string;
-    endTime: string;
-}
-const createSchedule = async (payload: ICreateSchedulePayload) => {
+const createSchedule = async (payload: ICreateSchedulePayload) =>{
     const { startDate, endDate, startTime, endTime } = payload;
 
     const interval = 30;
 
-    // const currentDate = new Date(startDate);
-    const currentDate = new Date(startDate)
+    const currentDate = new Date(startDate);
     const lastDate = new Date(endDate);
 
     const schedules = [];
-
-
 
     while (currentDate <= lastDate) {
         const startDateTime = new Date(
@@ -78,32 +69,26 @@ const createSchedule = async (payload: ICreateSchedulePayload) => {
     }
 
     return schedules;
-
-
-
 }
 
-
-
-
-const getAllSchedules = async (query: IQueryParams) => {
+const getAllSchedules = async (query : IQueryParams) => {
     const queryBuilder = new QueryBuilder<Schedule, Prisma.ScheduleWhereInput, Prisma.ScheduleInclude>(
         prisma.schedule,
         query,
         {
             searchableFields: scheduleSearchableFields,
-            filterableFields: scheduleFilterableFields
+            filterableFields:scheduleFilterableFields
         }
     )
 
     const result = await queryBuilder
-        .search()
-        .filter()
-        .paginate()
-        .dynamicInclude(scheduleIncludeConfig)
-        .sort()
-        .fields()
-        .execute();
+    .search()
+    .filter()
+    .paginate()
+    .dynamicInclude(scheduleIncludeConfig)
+    .sort()
+    .fields()
+    .execute();
 
     return result;
 }
