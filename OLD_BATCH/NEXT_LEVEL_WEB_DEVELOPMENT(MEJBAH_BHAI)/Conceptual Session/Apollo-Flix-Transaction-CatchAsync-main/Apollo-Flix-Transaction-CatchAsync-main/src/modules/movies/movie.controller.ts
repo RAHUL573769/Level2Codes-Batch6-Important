@@ -21,7 +21,7 @@ const getAllMovies = async (req: Request, res: Response) => {
       message: "Movies are fetched successfully !",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).json({
       success: false,
       message: "Could not fetch movies!",
@@ -40,7 +40,7 @@ const getMovieBySlug = async (req: Request, res: Response) => {
       message: "Movies are fetched successfully !",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).json({
       success: false,
       message: "Could not fetch movies!",

@@ -26,3 +26,20 @@ export const catchAsync = (fn: RequestHandler) => {
     });
   };
 };
+
+
+const catchAsyncMe = (fn: RequestHandler) => {
+
+  const returnedFunction = async (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: "Could not fetch random movie!",
+        error: error,
+      });
+    });
+  }
+  return returnedFunction
+
+}
